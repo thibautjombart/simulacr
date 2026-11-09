@@ -65,17 +65,8 @@ size.
 incubation <- c(0, 1, 1, 1, 1) # numbers = unscaled PMF
 infectious_period <- make_disc_gamma(10, 7) # distcrete object
 reporting <- function(x) dpois(x, 5) # PMF function
+
 set.seed(1)
-x <- simulate_outbreak(R = runif(100, 1, 3), # random values on [1;3]
-                       dist_incubation= incubation,
-                       dist_infectious_period = infectious_period,
-                       dist_reporting = reporting)
-dim(x)
-head(x)
-tail(x)
-if (require(epicontacts)) {
-  plot(x)
-}
 }
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}

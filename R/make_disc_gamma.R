@@ -2,7 +2,7 @@
 #' 
 #' This function is a simple wrapper around the packages *epitrix* and
 #' *distcrete* allowing to create a discretised Gamma distribution with given
-#' mean and standard deviration, returning a `distcrete` object.
+#' mean and standard deviation, returning a `distcrete` object.
 #'
 #' @export
 #' 
@@ -28,6 +28,13 @@
 #' 
 
 make_disc_gamma <- function(mean, sd) {
+  if (!is.finite(mean)) {
+    stop("'mean' must be a finite number")
+  }
+  if (!is.finite(sd)) {
+    stop("'sd' must be a finite number")
+  }
+  
   params <- epitrix::gamma_mucv2shapescale(mean, sd / mean)
   distcrete::distcrete("gamma",
                        interval = 1,

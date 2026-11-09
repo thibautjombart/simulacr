@@ -20,3 +20,6 @@ package to generate random alphanumeric labels.
 draw_labels()
 draw_labels(10, 3)
 }
+\author{
+Thibaut Jombart
+}

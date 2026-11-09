@@ -1,4 +1,6 @@
-
+## Internal utility functions for the package.
+##
+##
 assert_R <- function(x) {
   if (!is.numeric(x)) stop("R is not numeric")
   if (!all(is.finite(x))) stop("R is not a finite value")

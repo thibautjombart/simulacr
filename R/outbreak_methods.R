@@ -6,8 +6,7 @@
 #'
 #' @rdname outbreak_methods
 #'
-#' @aliases outbreak outbreak_class as_epicontacts as.epicontacts
-#'   as_epicontacts.outbreaks as.epicontacts.outbreaks
+#' @aliases outbreak outbreak_class as_epicontacts as.epicontacts as_epicontacts.outbreaks as.epicontacts.outbreaks
 #'
 #' @export
 #'
