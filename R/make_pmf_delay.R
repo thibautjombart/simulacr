@@ -28,7 +28,7 @@
 #' res(-1)
 #' 
 
-make_pmf <- function(x) {
+make_pmf_delay <- function(x) {
 
   ## check input type ; oddly enough integer vectors don't inherit 'numeric', 
   ## but their is.numeric() is TRUE

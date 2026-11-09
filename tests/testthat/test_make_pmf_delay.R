@@ -1,5 +1,5 @@
 test_that(
-  "make_pmf() issues the correct errors", {
+  "make_pmf_delay() issues the correct errors", {
     
     msg <- "'x' must be a distcrete object, a function, or a numeric vector"
     expect_error(make_pmf(NULL), msg)
@@ -30,7 +30,7 @@ test_that(
 
 
 test_that(
-  "make_pmf() returns correct outputs", {
+  "make_pmf_delay() returns correct outputs", {
     
     ## input is a distcrete: function returns the $d component
     x <- distcrete::distcrete("norm", 1)

@@ -17,7 +17,6 @@
 make_number_generator <- function(x) {
 
   ## handle `x` input as distcrete object
-
   if (inherits(x, "distcrete")) {
     return(x$r)
   }
@@ -75,7 +74,6 @@ make_number_generator <- function(x) {
 
   ## handle `x` input as a pmf
   ## we check that the input is numeric, has only finite and positive values
-  
   if (!is.numeric(x)) {
     msg <- sprintf(
         "`x` is neither a function nor a numeric vector (but a `%s`)",
