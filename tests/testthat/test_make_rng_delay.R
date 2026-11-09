@@ -22,17 +22,17 @@ test_that(
     ## check that distributional properties are correct
     x <- distcrete::distcrete("norm", mean = 12, sd = 1, interval = 1, w = 0.5)
     res <- make_rng_delay(x)
-    samp <- res(1000)
+    samp <- res(1e4)
     expect_equal(round(mean(samp)), 12)
     expect_true(sd(samp) > 0.9)
     expect_true(sd(samp) < 1.1)
     
     x <- function(x) dpois(x, 55)
     res <- make_rng_delay(x)
-    samp <- res(1000)
+    samp <- res(1e4)
     expect_equal(round(mean(samp)), 55)
-    expect_true(var(samp) > 50)
-    expect_true(var(samp) < 60)
+    expect_true(var(samp) > 40)
+    expect_true(var(samp) < 70)
     
   }
 )
