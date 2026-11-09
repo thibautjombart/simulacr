@@ -7,13 +7,15 @@ Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat, roxygen2
+Suggests: 
+    knitr,
+    roxygen2,
+    testthat
 Imports:
-    epicontacts,
     distcrete,
+    epicontacts,
     epitrix,
-    stringi,
-    dplyr
+    stringi
 URL: https://github.com/reconhub/simulacr
 BugReports: https://github.com/reconhub/simulacr/issues
 VignetteBuilder: knitr

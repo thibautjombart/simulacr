@@ -14,7 +14,7 @@ make_disc_gamma(mean, sd)
 \description{
 This function is a simple wrapper around the packages \emph{epitrix} and
 \emph{distcrete} allowing to create a discretised Gamma distribution with given
-mean and standard deviration, returning a \code{distcrete} object.
+mean and standard deviation, returning a \code{distcrete} object.
 }
 \examples{
 

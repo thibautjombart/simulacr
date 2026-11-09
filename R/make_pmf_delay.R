@@ -14,16 +14,16 @@
 #' 
 #' @examples
 #' ## create a pmf from a distcrete object
-#' d <- distcrete::distcrete("exp", rate = 3.123, w = 1)
-#' res <- make_pmf(d)
+#' d <- distcrete::distcrete("exp", rate = 3.123, w = 0, interval = 1)
+#' res <- make_pmf_delay(d)
 #' res(0:10)
 #' 
 #' ## create a pmf from a function
-#' res <- make_pmf(function(x) dpois(x, lambda = 1.198))
+#' res <- make_pmf_delay(function(x) dpois(x, lambda = 1.198))
 #' res(0:10)
 #' 
 #' ## create a pmf from a vector of positive numbers
-#' res <- make_pmf(c(1:5, 10:1))
+#' res <- make_pmf_delay(c(1:5, 10:1))
 #' res(0:20)
 #' res(-1)
 #' 

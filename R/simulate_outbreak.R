@@ -54,17 +54,9 @@
 #' incubation <- c(0, 1, 1, 1, 1) # numbers = unscaled PMF
 #' infectious_period <- make_disc_gamma(10, 7) # distcrete object
 #' reporting <- function(x) dpois(x, 5) # PMF function
+#' 
 #' set.seed(1)
-#' x <- simulate_outbreak(R = runif(100, 1, 3), # random values on [1;3]
-#'                        dist_incubation= incubation,
-#'                        dist_infectious_period = infectious_period,
-#'                        dist_reporting = reporting)
-#' dim(x)
-#' head(x)
-#' tail(x)
-#' if (require(epicontacts)) {
-#'   plot(x)
-#' }
+
 
 simulate_outbreak <- function(duration = 100, # duration of the simulation
                               population_size = 100,
@@ -90,10 +82,10 @@ simulate_outbreak <- function(duration = 100, # duration of the simulation
   
   ## make random distribution from inputs, from pmf to random numbers
   x_values <- 0:1000
-  pmf_incubation <- make_pmf(dist_incubation)
-  pmf_infectious_period <- make_pmf(dist_infectious_period)
-  r_incubation <- make_number_generator(pmf_incubation(x_values))
-  r_infectious_period <- make_number_generator(pmf_infectious_period(x_values))
+  pmf_incubation <- make_pmf_delay(dist_incubation)
+  pmf_infectious_period <- make_pmf_delay(dist_infectious_period)
+  r_incubation <- make_rng_delay(pmf_incubation(x_values))
+  r_infectious_period <- make_rng_delay(pmf_infectious_period(x_values))
   
   assert_R(R_values)
   r_R <- function(n = 1) sample_(R_values, n, replace = TRUE)
@@ -106,8 +98,8 @@ simulate_outbreak <- function(duration = 100, # duration of the simulation
                                 R = r_R(1))
 
   if (simulate_reporting) {
-    pmf_reporting <- make_pmf(dist_reporting)
-    r_reporting <- make_number_generator(pmf_reporting(x_values))
+    pmf_reporting <- make_pmf_delay(dist_reporting)
+    r_reporting <- make_rng_delay(dist_reporting)
     index_case$date_report <- index_case$date_onset + r_reporting(1)
   }
 

@@ -23,9 +23,15 @@ input into a PMF, then samples delays from this PMF.
 }
 \examples{
 # RNG from a poisson distribution
-#
+r_delay <- make_rng_delay(function(x) dpois(x, 2.5))
+r_delay(10)
+summary(r_delay(1e4))
 
-
+# RNG from an empirical weight distribution
+r_delay <- make_rng_delay(c(0, 1, 1, 2, 4, 2, 1, 1, 0.5, 0.2))
+r_delay(10)
+summary(r_delay(1e4))
+barplot(table(r_delay(1000)))
 }
 \author{
 Thibaut Jombart
