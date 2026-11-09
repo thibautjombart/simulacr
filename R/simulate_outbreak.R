@@ -77,7 +77,7 @@ simulate_outbreak <- function(duration = 100, # duration of the simulation
   ## General strategy to handle the distribution inputs
 
   ## We want to be a bit flexible as to how inputs are provided for the
-  ## distributions. Inputs should always correspond to a probability mass
+  ## distributions. Delay inputs should always correspond to a probability mass
   ## function (pmf), from which we derive random number generators if
   ## needed. The function `make_pmf` will accept `distcrete` objects, functions
   ## computing the pmf, or a vector of numbers taken as the relative
