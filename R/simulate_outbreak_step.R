@@ -87,7 +87,7 @@ simulate_outbreak_step <- function(
   lambda_t_ij <- (as.numeric(I) * tau * w(t - date_infection)) * C
   rate_infected <- as.numeric(S) * colSums(lambda_t_ij)
   p_infected <- 1 - exp(-rate_infected)
-  new_infected <- runif(n) <= p_infected
+  new_infected <- stats::runif(n) <= p_infected
   
   ## Determine new infectors for each new infected case
   ##

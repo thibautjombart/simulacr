@@ -4,17 +4,7 @@
 \alias{simulate_outbreak_step}
 \title{Simulate epidemic spread for one time step}
 \usage{
-simulate_outbreak_step(
-  t,
-  n,
-  labels,
-  susceptible,
-  infected,
-  date_infection,
-  contacts,
-  tau,
-  w
-)
+simulate_outbreak_step(t, labels, S, I, date_infection, C, tau, w)
 }
 \arguments{
 \item{t}{A single \code{integer} indicating the current time step. The function
@@ -23,17 +13,17 @@ will return the state of the epidemic at time \code{t + 1}.}
 \item{labels}{A character vector of length \code{n} containing the labels of the
 individuals.}
 
-\item{susceptible}{A logical vector of length \code{n} indicating which
+\item{S}{A logical vector of length \code{n} indicating which
 individuals are susceptible.}
 
-\item{infected}{A logical vector of length \code{n} indicating which individuals
+\item{I}{A logical vector of length \code{n} indicating which individuals
 are infectious.}
 
 \item{date_infection}{An \code{integer} vector of length \code{n} indicating the dates
 of infection of infected individuals. Entries for non-infected individuals
-should be NAs.}
+should be -1 by convention.}
 
-\item{contacts}{A matrix of size \verb{n x n} containing the number of contacts or
+\item{C}{A matrix of size \verb{n x n} containing the number of contacts or
 contact intensity between individuals at time \code{t}.}
 
 \item{tau}{A numeric vector of length \code{n} containing individual transmission
@@ -46,11 +36,11 @@ generation time distribution for given time intervals, as produced by
 \value{
 A list with the following items:
 \itemize{
-\item \verb{$susceptible}: same as input, updated.
-\item \verb{$infected}: same as input, updated.
+\item \verb{$S}: same as input, updated.
+\item \verb{$I}: same as input, updated.
 \item \verb{$date_infection}: same as input, updated.
-\item \verb{$tree}: a 3-columns matrix with columns \code{from}, \code{to}, and \code{date} reporting
-new transmission events which took place at time \code{t}
+\item \verb{$tree}: a 3-columns \code{data.frame} with columns \code{from}, \code{to}, and \code{date}
+reporting new transmission events which took place at time \code{t+1}
 }
 }
 \description{
@@ -62,7 +52,7 @@ attention to inputs as they are not validated. This functions is intended
 to be used inside a for loop, with input validation being done beforehand.
 }
 \details{
-The force of infection (FOI) from individual \eqn{i} to \eqn{j }at time
+The force of infection (FOI) from individual \eqn{i} to \eqn{j} at time
 \eqn{t} is defined as:
 
 \eqn{\lambda_{t, i \rightarrow j} = I_{t,i} C_{t, i \rightarrow j} \tau_{t,i} w(t - T_i)}
