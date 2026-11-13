@@ -182,3 +182,9 @@ participating in this project you agree to abide by its terms.
 - [`simulate_outbreak_step()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak_step.md)
   : Simulate epidemic spread for one time step
 
+# Articles
+
+### All vignettes
+
+- [Introduction to
+  simulacr](https://thibautjombart.github.io/simulacr/articles/Introduction.md):
