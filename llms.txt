@@ -89,19 +89,19 @@ names(res)
 #> [1] "linelist" "tree"
 res
 #> $linelist
-#> # A tibble: 100 × 4
-#>    id     casedef date_infection stringsAsFactors
-#>    <chr>  <chr>            <dbl> <lgl>           
-#>  1 eLGzdD case                 1 FALSE           
-#>  2 8Tvbyj case                44 FALSE           
-#>  3 MQ90i6 case                45 FALSE           
-#>  4 RdzUUA case                43 FALSE           
-#>  5 kSVCEa case                30 FALSE           
-#>  6 Z42dvb case                46 FALSE           
-#>  7 YWzVgb case                40 FALSE           
-#>  8 EGjSAk case                51 FALSE           
-#>  9 6rcYKS case                34 FALSE           
-#> 10 VBW4HD case                33 FALSE           
+#> # A tibble: 100 × 3
+#>    id     casedef date_infection
+#>    <chr>  <chr>            <dbl>
+#>  1 eLGzdD case                 1
+#>  2 8Tvbyj case                44
+#>  3 MQ90i6 case                45
+#>  4 RdzUUA case                43
+#>  5 kSVCEa case                30
+#>  6 Z42dvb case                46
+#>  7 YWzVgb case                40
+#>  8 EGjSAk case                51
+#>  9 6rcYKS case                34
+#> 10 VBW4HD case                33
 #> # ℹ 90 more rows
 #> 
 #> $tree
@@ -129,7 +129,7 @@ res
 plot(res)
 ```
 
-![](https://github.com/thibautjombart/simulacr/raw/master/figures/plot_sim1.png)
+![](https://github.com/thibautjombart/simulacr/raw/main/figures/plot_sim1.png)
 
 Note: for the interactive version of this plot, check the simulacr
 [website](https://thibautjombart.github.io/simulacr/).
