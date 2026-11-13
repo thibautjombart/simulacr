@@ -90,18 +90,49 @@ simulate_outbreak <- function(
   contacts <- process_contacts(contacts, n, duration)
   labels <- draw_labels(n, size = label_size)
    
+  
   ## Initialize the outbreak
+  S <- rep(TRUE, n)
+  S[1] <- FALSE
+  I <- !S
+  date_infection <- as.integer(rep(-1L, n))
+  date_infection[1] <- 1
+  tree <- data.frame(
+    from = NA_character_, 
+    to = labels[1], 
+    date = date_infection[1], 
+    stringsAsFactors = FALSE
+  )
   
-  ## Run the outbreak
-  
+  ##  run the outbreak
+  for (t in 1:duration) {
+    temp <- simulate_outbreak_step(
+      t = t,
+      labels = labels,
+      S = S, 
+      I = I, 
+      date_infection = date_infection, 
+      C = contacts(t), 
+      tau = tau,
+      w = w
+    )
+    S <- temp$S
+    I <- temp$I
+    date_infection <- temp$date_infection
+    tree <- rbind(tree, temp$tree)
+  }
   
   ## Shape final output
- 
-  # out <- NULL
+  out <- list(
+    S = S,
+    I = I,
+    date_infection = date_infection,
+    tree = tree
+  )
   # out <- data.frame(out, stringsAsFactors = FALSE)
   # class(out) <- c("outbreak", class(out))
   # attr(out, "has_contacts") <- FALSE
   # out
-  NULL
+  out
 }
 

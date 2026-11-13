@@ -108,3 +108,21 @@ test_that(
     
   }
 )
+
+
+
+
+test_that(
+  "simulate_outbreak() returns correct results",
+  {
+    res <- simulate_outbreak(1)
+    expect_equal(res$S, FALSE)
+    expect_equal(res$I, TRUE)
+    expect_equal(res$date_infection, 1)
+    expect_true(is.na(res$tree$from[1]))
+    expect_equal(nrow(res$tree), 1)
+    expect_identical(names(res$tree), c("from", "to", "date"))
+    
+    
+  }
+)
