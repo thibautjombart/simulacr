@@ -1,52 +1,65 @@
 #' Simulate outbreaks with transmission trees
 #'
-#' This function implements an individual-based outbreak simulator which
-#' generates transmission trees. A Poisson branching process is used to generate
-#' new cases in time, using the distribution of the reproduction number (R) and
-#' of the duration of the infectious period to determine rates of infection. A
-#' density-dependence term is used so that individual infectiousness decreases
-#' with the proportion of susceptible individuals in the population (see
-#' details). For each simulated case, the simulator generates an individual
-#' reproduction number, date of infection, symptom onset, and reporting using
-#' user-specified distributions. Distributions can be provided either as
-#' `distcrete` objects, as functions computing the probability mass functions
-#' (PMF), or as vectors of numbers taken as the PMF for values on 0, 1, ...,
-#' `length(input) - 1`
-#'
-#' @param duration the number of days to run the simulation for
-#'
-#' @param population_size the number of susceptible hosts to use in the
-#'   simulation; defaults to 100
-#'
-#' @param R_values a vector of values to be used as reproduction number; values
-#'   will be drawn at random from this vector to determine the expected numbero
-#'   of secondary cases for each new case
-#'
-#' @param dist_incubation the distribution of the incubation period, i.e. the
-#'   time interval between infection and onset of symtpoms
-#'
-#' @param dist_infectious_period the distribution of the infectious period,
-#'   i.e. the time interval between the moment a case starts showing symptoms
-#'   (onset) and the moment they infect new secondary cases
-#'
-#' @param dist_reporting (optional) the distribution of the reporting delay,
-#'   i.e. the time interval between symptom onset and the date at which the case
-#'   is notified; if `NULL` (default) reporting dates will not be simulated
-#'
-#' @details
-#' Individual infectiousness is determined as \eqn{R x w(t - t_{onset})} where
-#' \eqn{R} is the individual reproduction number, \eqn{w} is the PMF of the
-#' duration of the infectious period, \eqn{t} is current time, and
-#' \eqn{t_{onset}} is the date of symptom onset for the considered individual.
-#' The number of new cases at time *t* is then taken from a Poisson distribution
-#' with a rate of infection \eqn{\lambda_t n_s / n} where \eqn{lambda_t} is the
-#' sum of all individual infectiousness at time *t*, \eqn{n_s} is the number of
-#' susceptible individuals in the population, and *n* is the total population
-#' size.
+#' This function implements a contact-driven branching process outbreak
+#' simulator. Outbreaks start with a single infection in an otherwise fully
+#' susceptible population of size `n`on the first time step. New cases are
+#' generated at each time step by infectious individuals, with forces of
+#' infection depending on the generation time distribution, individual
+#' transmission rates, and contacts between individuals. The function returns a
+#' linelist including both non-cases and cases, as well as a transmission tree
+#' listing all transmission events in the shape of a `data.frame` with columns
+#' `from`, `to`, and `date`. This function is user-facing; to use the `simulacr`
+#' engine in another package, you may want to use the low-level function
+#' `[simulate_outbreak_step()]`.
 #' 
 #' @export
 #' 
 #' @author Thibaut Jombart \email{thibautjombart@@gmail.com}
+#' 
+#' @param n An `integer` indicating the number of individuals in the population;
+#'   no default.
+#'  
+#' @param duration An `integer` indicating the number of time steps to run the
+#'   simulation for; defaults to 1L (i.e. only the initial infection is
+#'   generated).
+#'   
+#' @param w The probability mass function of the generation time distribution, 
+#'  as produced by `[make_pmf_delay()]`, specified as a numeric vector, a
+#'  function, or a `distcrete` object. Defaults to a point mass at 1 (i.e. all
+#'  secondary infections take place exactly 1 time step after the primary
+#'  infection).
+#'
+#' @param tau A numeric vector of length `n` containing individual transmission 
+#'   rates; a single value will be recycled; defaults to 0 (no transmission).
+#'   
+#' @param contacts Contacts between all individuals in the population. It can be
+#'   specified in two ways: i) an n x n matrix where entries correspond to
+#'   contact presence or intensities, or ii) a function with a single argument
+#'   `t` (time step) generating such matrix at each time step. If `NULL`
+#'   (default), we assume random-mixing in the population, i.e. all individuals
+#'   are in contact at every time step.
+#'   
+#' @param label_size An `integer` indicating the length of the labels generated
+#'   by `[draw_labels()]`, used as unique individual identifiers. Defaults to 6.
+#'
+#' @details
+#' The force of infection (FOI) from individual \eqn{i} to \eqn{j} at time 
+#' \eqn{t} is defined as:
+#' 
+#'  \eqn{\lambda_{t, i \rightarrow j} = I_{t,i} C_{t, i \rightarrow j} \tau_{t,i} w(t - T_i)}
+#'  
+#' The total FOI experienced by individual  at time  is summed over all possible
+#' sources of infection:
+#' \eqn{\lambda_{t, \bullet \rightarrow j} = S_{t,j} \sum_i \lambda_{t, i \rightarrow j} }
+#' 
+#' It follows that individual \eqn{j} becomes infected at time \eqn{t+1}
+#' according to a Bernoulli distribution with probability:
+#'\eqn{ 1 - e^{-\lambda_{t, \bullet \rightarrow j}} }
+#'
+#' To keep track of chains of transmission, the infector of \eqn{j}, denoted
+#' \eqn{alpha_j}, is drawn from a Multinomial distribution weighted by the
+#' respective FOIs directed towards \eqn{j}:
+#' \eqn{ \alpha_j \sim \mathcal{M}(1, \lambda_{t, 1 \rightarrow j} / \lambda_{t, \bullet \rightarrow j} ,\lambda_{t, 2 \rightarrow j} / \lambda_{t, \bullet \rightarrow j} , \ldots , \lambda_{t, N \rightarrow j} / \lambda_{t, \bullet \rightarrow j}  ) }
 #'
 #' @examples
 #' 
@@ -58,133 +71,71 @@
 #' set.seed(1)
 
 
-simulate_outbreak <- function(duration = 100, # duration of the simulation
-                              population_size = 100,
-                              R_values, # average secondary cases
-                              dist_incubation, # infection -> onset
-                              dist_infectious_period, # onset -> new infections
-                              dist_reporting = NULL  # onset -> reporting
-                              ) {
-
-  ## General strategy to handle the distribution inputs
-
-  ## We want to be a bit flexible as to how inputs are provided for the
-  ## distributions. Delay inputs should always correspond to a probability mass
-  ## function (pmf), from which we derive random number generators if
-  ## needed. The function `make_pmf` will accept `distcrete` objects, functions
-  ## computing the pmf, or a vector of numbers taken as the relative
-  ## probabilities on 0:(n-1) (rescaled to sum to 1 if needed). To create random
-  ## number generators, we evaluate the pmf on 0:1000, and pass this on to
-  ## make_number_generator.
+simulate_outbreak <- function(
+    n, 
+    duration = 1L,
+    w = c(0, 1),
+    tau = 0,
+    contacts = NULL,
+    label_size = 6) {
   
-  ## determine if we need to simulate reporting dates
-  simulate_reporting <- !is.null(dist_reporting)
-  
-  ## make random distribution from inputs, from pmf to random numbers
-  x_values <- 0:1000
-  pmf_incubation <- make_pmf_delay(dist_incubation)
-  pmf_infectious_period <- make_pmf_delay(dist_infectious_period)
-  r_incubation <- make_rng_delay(pmf_incubation(x_values))
-  r_infectious_period <- make_rng_delay(pmf_infectious_period(x_values))
-  
-  assert_R(R_values)
-  r_R <- function(n = 1) sample_(R_values, n, replace = TRUE)
-
-
-  ## make index case
-  index_case <- make_index_case(id = draw_labels(1),
-                                date_infection = 0,
-                                date_onset = r_incubation(1),
-                                R = r_R(1))
-
-  if (simulate_reporting) {
-    pmf_reporting <- make_pmf_delay(dist_reporting)
-    r_reporting <- make_rng_delay(dist_reporting)
-    index_case$date_report <- index_case$date_onset + r_reporting(1)
+  ## Process/sanitize inputs
+  n <- process_n(n)
+  duration <- process_duration(duration)
+  w <- make_pmf_delay(w)
+  tau <- process_tau(tau, n)
+  if (is.null(contacts)) {
+    contacts <- make_panmictic_contacts(n)
   }
-
-  n_susceptibles <- population_size - 1
+  contacts <- process_contacts(contacts, n, duration)
+  labels <- draw_labels(n, size = label_size)
+   
   
-
-  ## make vectors for the outputs
-  out <- index_case
-
-  for (t in seq_len(duration)) {
-    
-    ## Individual infectiousness at time 't' is defined as the infectious period
-    ## pmf multiplied by the individual R; the global force of infection is a
-    ## rate defined as the sum of individual infectiousnesses. This rate is
-    ## weighted by the proportion of susceptible individuals in the population
-    ## to introduce density-dependence, the result being used to draw the number
-    ## of secondary cases from a Poisson distribution
-    
-    if (n_susceptibles > 0) {
-      individual_infectiousness <- pmf_infectious_period(t - out$date_onset) * out$R
-      rate_infection <- sum(individual_infectiousness) * (n_susceptibles / population_size)
-      n_new_cases <- stats::rpois(1, lambda = rate_infection)
-      n_new_cases <- min(n_susceptibles, n_new_cases)
-      ## proba_infection <- 1 - exp(-rate_infection)
-      ## n_new_cases <- rbinom(1, size = n_susceptibles, prob = proba_infection)
-    } else {
-      n_new_cases <- 0
-    }
-
-    ## handle new cases
-    if(n_new_cases > 0){
-
-      ## remove susceptibles
-      n_susceptibles <- n_susceptibles - n_new_cases
-
-      
-      ## build new cases: id, different dates, etc.
-
-      ## infectors are picked from infectious cases, weighted by their
-      ## respective infectiousness
-      new_infectors <- sample(out$id,
-                              size = n_new_cases,
-                              replace = TRUE,
-                              prob = individual_infectiousness)
-      out$source <- c(out$source,
-                      new_infectors)
-
-      ## id
-      out$id <- c(out$id,
-                  draw_labels(n_new_cases))
-      
-      ## new dates of new infections are the current day
-      new_date_infection <- rep(t, n_new_cases)
-      out$date_infection <- c(out$date_infection,
-                              new_date_infection)
-
-      ## new dates of onset picked using the incubation period
-      new_date_onset <- t + r_incubation(n_new_cases)
-      out$date_onset <- c(out$date_onset,
-                          new_date_onset)
-
-      if (simulate_reporting) {
-        ## new dates of report picked using the delay to reporting
-        new_date_report <- new_date_onset + r_reporting(n_new_cases)
-        out$date_report <- c(out$date_report,
-                             new_date_report)
-      }
-      
-      ## new R values are drawn at random
-      new_R <- r_R(n_new_cases)
-      out$R <- c(out$R,
-                 new_R)
-      
-    }
+  ## Initialize the outbreak
+  S <- rep(TRUE, n)
+  S[1] <- FALSE
+  I <- !S
+  date_infection <- as.integer(rep(-1L, n))
+  date_infection[1] <- 1
+  tree <- data.frame(
+    from = NA_character_, 
+    to = labels[1], 
+    date = date_infection[1], 
+    stringsAsFactors = FALSE
+  )
+  
+  ##  run the outbreak
+  for (t in 1:duration) {
+    temp <- simulate_outbreak_step(
+      t = t,
+      labels = labels,
+      S = S, 
+      I = I, 
+      date_infection = date_infection, 
+      C = contacts(t), 
+      tau = tau,
+      w = w
+    )
+    S <- temp$S
+    I <- temp$I
+    date_infection <- temp$date_infection
+    tree <- rbind(tree, temp$tree)
   }
-
-
-  ## output will be a data.frame with a special type for e.g. printing and
-  ## conversion
-  if (!simulate_reporting) {
-    out$date_report <- NULL
-  }
-  out <- data.frame(out, stringsAsFactors = FALSE)
-  class(out) <- c("outbreak", class(out))
-  attr(out, "has_contacts") <- FALSE
+  
+  ## Shape final output
+  casedef <- rep("non_case", n)
+  casedef[I] <- "case"
+  
+  linelist <- tibble::tibble(
+    id = labels,
+    casedef = casedef,
+    date_infection = date_infection
+  )
+  out <- list(
+    linelist = linelist,
+    tree = tibble::tibble(tree)
+  )
+  class(out) <- c("simulacr", class(out))
   out
 }
 

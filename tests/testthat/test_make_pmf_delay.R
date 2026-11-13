@@ -35,7 +35,7 @@ test_that(
     ## input is a distcrete: function returns the $d component
     x <- distcrete::distcrete("norm", 1)
     res <- make_pmf_delay(x)
-    expect_identical(x$d, res)
+    expect_equal(x$d(0:20), res(0:20))
     
     ## input is a function returning pmf values
     f <- function(x) dpois(x, 1.132)

@@ -5,59 +5,72 @@
 \title{Simulate outbreaks with transmission trees}
 \usage{
 simulate_outbreak(
-  duration = 100,
-  population_size = 100,
-  R_values,
-  dist_incubation,
-  dist_infectious_period,
-  dist_reporting = NULL
+  n,
+  duration = 1L,
+  w = c(0, 1),
+  tau = 0,
+  contacts = NULL,
+  label_size = 6
 )
 }
 \arguments{
-\item{duration}{the number of days to run the simulation for}
+\item{n}{An \code{integer} indicating the number of individuals in the population;
+no default.}
 
-\item{population_size}{the number of susceptible hosts to use in the
-simulation; defaults to 100}
+\item{duration}{An \code{integer} indicating the number of time steps to run the
+simulation for; defaults to 1L (i.e. only the initial infection is
+generated).}
 
-\item{R_values}{a vector of values to be used as reproduction number; values
-will be drawn at random from this vector to determine the expected numbero
-of secondary cases for each new case}
+\item{w}{The probability mass function of the generation time distribution,
+as produced by \verb{[make_pmf_delay()]}, specified as a numeric vector, a
+function, or a \code{distcrete} object. Defaults to a point mass at 1 (i.e. all
+secondary infections take place exactly 1 time step after the primary
+infection).}
 
-\item{dist_incubation}{the distribution of the incubation period, i.e. the
-time interval between infection and onset of symtpoms}
+\item{tau}{A numeric vector of length \code{n} containing individual transmission
+rates; a single value will be recycled; defaults to 0 (no transmission).}
 
-\item{dist_infectious_period}{the distribution of the infectious period,
-i.e. the time interval between the moment a case starts showing symptoms
-(onset) and the moment they infect new secondary cases}
+\item{contacts}{Contacts between all individuals in the population. It can be
+specified in two ways: i) an n x n matrix where entries correspond to
+contact presence or intensities, or ii) a function with a single argument
+\code{t} (time step) generating such matrix at each time step. If \code{NULL}
+(default), we assume random-mixing in the population, i.e. all individuals
+are in contact at every time step.}
 
-\item{dist_reporting}{(optional) the distribution of the reporting delay,
-i.e. the time interval between symptom onset and the date at which the case
-is notified; if \code{NULL} (default) reporting dates will not be simulated}
+\item{label_size}{An \code{integer} indicating the length of the labels generated
+by \verb{[draw_labels()]}, used as unique individual identifiers. Defaults to 6.}
 }
 \description{
-This function implements an individual-based outbreak simulator which
-generates transmission trees. A Poisson branching process is used to generate
-new cases in time, using the distribution of the reproduction number (R) and
-of the duration of the infectious period to determine rates of infection. A
-density-dependence term is used so that individual infectiousness decreases
-with the proportion of susceptible individuals in the population (see
-details). For each simulated case, the simulator generates an individual
-reproduction number, date of infection, symptom onset, and reporting using
-user-specified distributions. Distributions can be provided either as
-\code{distcrete} objects, as functions computing the probability mass functions
-(PMF), or as vectors of numbers taken as the PMF for values on 0, 1, ...,
-\code{length(input) - 1}
+This function implements a contact-driven branching process outbreak
+simulator. Outbreaks start with a single infection in an otherwise fully
+susceptible population of size \code{n}on the first time step. New cases are
+generated at each time step by infectious individuals, with forces of
+infection depending on the generation time distribution, individual
+transmission rates, and contacts between individuals. The function returns a
+linelist including both non-cases and cases, as well as a transmission tree
+listing all transmission events in the shape of a \code{data.frame} with columns
+\code{from}, \code{to}, and \code{date}. This function is user-facing; to use the \code{simulacr}
+engine in another package, you may want to use the low-level function
+\verb{[simulate_outbreak_step()]}.
 }
 \details{
-Individual infectiousness is determined as \eqn{R x w(t - t_{onset})} where
-\eqn{R} is the individual reproduction number, \eqn{w} is the PMF of the
-duration of the infectious period, \eqn{t} is current time, and
-\eqn{t_{onset}} is the date of symptom onset for the considered individual.
-The number of new cases at time \emph{t} is then taken from a Poisson distribution
-with a rate of infection \eqn{\lambda_t n_s / n} where \eqn{lambda_t} is the
-sum of all individual infectiousness at time \emph{t}, \eqn{n_s} is the number of
-susceptible individuals in the population, and \emph{n} is the total population
-size.
+The force of infection (FOI) from individual \eqn{i} to \eqn{j} at time
+\eqn{t} is defined as:
+
+\eqn{\lambda_{t, i \rightarrow j} = I_{t,i} C_{t, i \rightarrow j} \tau_{t,i} w(t - T_i)}
+
+The total FOI experienced by individual  at time  is summed over all possible
+sources of infection:
+\eqn{\lambda_{t, \bullet \rightarrow j} = S_{t,j} \sum_i \lambda_{t, i \rightarrow j} }
+
+It follows that individual \eqn{j} becomes infected at time \eqn{t+1}
+according to a Bernoulli distribution with probability:
+\eqn{ 1 - e^{-\lambda_{t, \bullet \rightarrow j}} }
+
+To keep track of chains of transmission, the infector of \eqn{j}, denoted
+\eqn{alpha_j}, is drawn from a Multinomial distribution weighted by the
+respective FOIs directed towards \eqn{j}:
+\eqn{ \alpha_j \sim \mathcal{M}(1, \lambda_{t, 1 \rightarrow j} / \lambda_{t, \bullet \rightarrow j} ,\lambda_{t, 2 \rightarrow j} / \lambda_{t, \bullet \rightarrow j} , \ldots , \lambda_{t, N \rightarrow j} / \lambda_{t, \bullet \rightarrow j}  ) }
 }
 \examples{
 

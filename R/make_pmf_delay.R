@@ -40,7 +40,7 @@ make_pmf_delay <- function(x) {
   
   ## handle `x` input as distcrete object
   if (inherits(x, "distcrete")) {
-    return(x$d)
+    return(function(t) x$d(t))
   }
   
   
