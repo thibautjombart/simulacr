@@ -4,10 +4,13 @@
 \alias{as_epicontacts}
 \alias{as_epicontacts.simulacr}
 \alias{as.epicontacts.simulacr}
+\alias{as.epicontacts}
 \alias{plot.simulacr}
 \title{Basic methods for simulacr objects}
 \usage{
 as_epicontacts(...)
+
+as.epicontacts(...)
 
 \method{as_epicontacts}{simulacr}(x, ...)
 

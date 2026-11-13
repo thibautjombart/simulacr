@@ -18,7 +18,7 @@ as_epicontacts <- function(...) {
   UseMethod("as_epicontacts")
 }
 
-#' @rdname outbreak_methods
+#' @rdname simulacr_methods
 #' @export
 
 as.epicontacts <- as_epicontacts
