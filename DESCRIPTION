@@ -9,6 +9,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     knitr,
+    rmarkdown,
     roxygen2,
     testthat
 Imports:

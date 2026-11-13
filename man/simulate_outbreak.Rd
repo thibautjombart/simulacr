@@ -74,12 +74,30 @@ respective FOIs directed towards \eqn{j}:
 }
 \examples{
 
-## make toy distributions (showing the 3 possible input types)
-incubation <- c(0, 1, 1, 1, 1) # numbers = unscaled PMF
-infectious_period <- make_disc_gamma(10, 7) # distcrete object
-reporting <- function(x) dpois(x, 5) # PMF function
 
+## make a generation time distribution
+gen_time <- make_pmf_delay(make_disc_gamma(10, 7))
+plot(
+  gen_time(0:30), type = "h", lend = 2, lwd = 10, 
+  main = "Generation time distribution", 
+  xlab = "Delay from primary to secondary infection (days)", 
+  ylab = "p(delay)"
+)
+
+## simulate an outbreak using random mixing 
+## (no contacts matrix provided -> all individuals are in contact by default)
 set.seed(1)
+res <- simulate_outbreak(
+  n = 100, # 100 individuals in the population
+  duration = 365, # simulate for a year
+  w = gen_time, # generation time distribution
+  tau = runif(100, 0.01, 0.05) # individual transmission rates, from 0.01 to 0.05
+)
+
+names(res)
+res
+plot(res)
+
 }
 \author{
 Thibaut Jombart \email{thibautjombart@gmail.com}

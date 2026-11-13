@@ -48,6 +48,6 @@ as_epicontacts.simulacr <- function(x, ...) {
 
 plot.simulacr <- function(x, ...) {
   type_pal <- grDevices::colorRampPalette(c("#ff8080", "#c2d6d6"))
-  out <- plot(as.epicontacts(x), node_color = "casedef", col_pal = type_pal)
+  out <- plot(as.epicontacts(x), node_color = "casedef", col_pal = type_pal, thin = FALSE)
   out
 }
