@@ -1,17 +1,15 @@
-simulacr: simulation of epidemics using contact-driven branching
-processes
-================
-
-<!-- README.md is generated from README.Rmd. Please edit that file. -->
-<!-- The code to render this README is stored in .github/workflows/render-readme.yaml -->
-<!-- Variables marked with double curly braces will be transformed beforehand: -->
-<!-- `packagename` is extracted from the DESCRIPTION file -->
-<!-- `gh_repo` is extracted via a special environment variable in GitHub Actions -->
 
 [![R-CMD-check](https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml)
 
 [![Codecov test
 coverage](https://codecov.io/gh/thibautjombart/simulacr/graph/badge.svg)](https://app.codecov.io/gh/thibautjombart/simulacr)
+
+<figure>
+<img
+src="https://raw.githubusercontent.com/thibautjombart/simulacr/badges/coverage.svg"
+alt="Test coverage" />
+<figcaption aria-hidden="true">Test coverage</figcaption>
+</figure>
 
 # Welcome to the *simulacr* package!
 
@@ -62,6 +60,7 @@ processes. The main features of the package include:
 This brief example illustrates how we can simulate an outbreak.
 
 ``` r
+library(simulacr)
 
 ## make a generation time distribution
 gen_time <- make_pmf_delay(make_disc_gamma(10, 7))
