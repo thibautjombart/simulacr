@@ -123,16 +123,20 @@ simulate_outbreak <- function(
   }
   
   ## Shape final output
-  out <- list(
-    S = S,
-    I = I,
+  casedef <- rep("non_case", n)
+  casedef[I] <- "case"
+  
+  linelist <- data.frame(
+    id = labels,
+    casedef = casedef,
     date_infection = date_infection,
+    stringsAsFactors = FALSE
+  )
+  out <- list(
+    linelist = linelist,
     tree = tree
   )
-  # out <- data.frame(out, stringsAsFactors = FALSE)
-  # class(out) <- c("outbreak", class(out))
-  # attr(out, "has_contacts") <- FALSE
-  # out
+  class(out) <- c("simulacr", class(out))
   out
 }
 

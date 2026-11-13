@@ -115,14 +115,17 @@ test_that(
 test_that(
   "simulate_outbreak() returns correct results",
   {
+    ## basic test with a single individual
     res <- simulate_outbreak(1)
-    expect_equal(res$S, FALSE)
-    expect_equal(res$I, TRUE)
-    expect_equal(res$date_infection, 1)
+    expect_true(inherits(res, "simulacr"))
+    expect_true(is.list(res))
+    expect_identical(names(res), c("linelist", "tree"))
+    expect_identical(names(res$linelist), c("id", "casedef", "date_infection"))
+    expect_identical(names(res$tree), c("from", "to", "date"))
+    expect_equal(res$linelist$casedef, "case")
+    expect_equal(res$linelist$date_infection, 1)
     expect_true(is.na(res$tree$from[1]))
     expect_equal(nrow(res$tree), 1)
-    expect_identical(names(res$tree), c("from", "to", "date"))
-    
     
   }
 )
