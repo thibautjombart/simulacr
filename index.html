@@ -51,15 +51,11 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><p>simulacr: simulation of epidemics using contact-driven branching processes ================</p>
-<!-- README.md is generated from README.Rmd. Please edit that file. -->
-<!-- The code to render this README is stored in .github/workflows/render-readme.yaml -->
-<!-- Variables marked with double curly braces will be transformed beforehand: -->
-<!-- `packagename` is extracted from the DESCRIPTION file -->
-<!-- `gh_repo` is extracted via a special environment variable in GitHub Actions -->
-<p><a href="https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></p>
+  <main id="main" class="col-md-9">
 <p><a href="https://app.codecov.io/gh/thibautjombart/simulacr" class="external-link"><img src="https://codecov.io/gh/thibautjombart/simulacr/graph/badge.svg" alt="Codecov test coverage"></a></p>
-<div class="section level1">
+<figure><img src="https://raw.githubusercontent.com/thibautjombart/simulacr/badges/coverage.svg" alt="Test coverage"><figcaption aria-hidden="true">
+Test coverage
+</figcaption></figure><div class="section level1">
 <div class="page-header"><h1 id="welcome-to-the-simulacr-package">Welcome to the <em>simulacr</em> package!<a class="anchor" aria-label="anchor" href="#welcome-to-the-simulacr-package"></a>
 </h1></div>
 <p>This package is under development. Do not use it without contacting the authors first.</p>
@@ -91,7 +87,8 @@
 </h1>
 <p>This brief example illustrates how we can simulate an outbreak.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thibautjombart.github.io/simulacr">simulacr</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="co">## make a generation time distribution</span></span>
 <span><span class="va">gen_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_pmf_delay.html">make_pmf_delay</a></span><span class="op">(</span><span class="fu"><a href="reference/make_disc_gamma.html">make_disc_gamma</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
@@ -209,7 +206,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>

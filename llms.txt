@@ -1,12 +1,12 @@
 # Welcome to the *simulacr* package!
 
-simulacr: simulation of epidemics using contact-driven branching
-processes ================
-
-[![R-CMD-check](https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml)
-
 [![Codecov test
 coverage](https://codecov.io/gh/thibautjombart/simulacr/graph/badge.svg)](https://app.codecov.io/gh/thibautjombart/simulacr)
+
+![Test
+coverage](https://raw.githubusercontent.com/thibautjombart/simulacr/badges/coverage.svg)
+
+Test coverage
 
 This package is under development. Do not use it without contacting the
 authors first.
@@ -59,6 +59,7 @@ This brief example illustrates how we can simulate an outbreak.
 
 ``` r
 
+library(simulacr)
 
 ## make a generation time distribution
 gen_time <- make_pmf_delay(make_disc_gamma(10, 7))
