@@ -84,6 +84,8 @@ simulate_outbreak <- function(
   duration <- process_duration(duration)
   w <- make_pmf_delay(w)
   tau <- process_tau(tau, n)
+  contacts <- process_contacts(contacts, n, duration)
+  labels <- draw_labels(n, size = label_size)
    
   ## Initialize the outbreak
   
@@ -92,10 +94,11 @@ simulate_outbreak <- function(
   
   ## Shape final output
  
-  
-  out <- data.frame(out, stringsAsFactors = FALSE)
-  class(out) <- c("outbreak", class(out))
-  attr(out, "has_contacts") <- FALSE
-  out
+  # out <- NULL
+  # out <- data.frame(out, stringsAsFactors = FALSE)
+  # class(out) <- c("outbreak", class(out))
+  # attr(out, "has_contacts") <- FALSE
+  # out
+  NULL
 }
 
