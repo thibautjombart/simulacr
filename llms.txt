@@ -1,0 +1,130 @@
+# Welcome to the *simulacr* package!
+
+simulacr: simulation of epidemics using contact-driven branching
+processes ================
+
+[![R-CMD-check](https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/thibautjombart/simulacr/actions/workflows/R-CMD-check.yaml)
+
+[![Codecov test
+coverage](https://codecov.io/gh/thibautjombart/simulacr/graph/badge.svg)](https://app.codecov.io/gh/thibautjombart/simulacr)
+
+This package is under development. Do not use it without contacting the
+authors first.
+
+## Installing the package
+
+To install the development version of the package, type:
+
+``` r
+
+pak::pkg_install("thibautjombart/simulacr")
+```
+
+Note that this requires the package *pak* to be installed.
+
+# What does it do?
+
+*simulacr* implements outbreak simulation using branching processes. The
+main features of the package include:
+
+- `simulate_outbreak`: the main function, allowing to simulate outbreaks
+  for specified values of reproduction number, incubation period,
+  duration of infectiousness, and optionally reporting delays; it
+  outputs a linelist stored as a `data.frame` with the class `outbreak`,
+  including information on transmission chains; the output can be
+  converted to `epicontacts` objects for visualisation, and plotted
+  using `plot(...)`
+
+- `as_epicontacts`: a function to convert `outbreak` object to
+  `epicontact`; called implicitely when plotting `outbreak` objects
+
+- `make_disc_gamma`: wrapper function to build discretised Gamma
+  distributions easily
+
+- `draw_labels`: wrapper function to generate random alphanumeric labels
+
+  
+
+# Worked example
+
+This brief example illustrates how we can simulate an outbreak, with
+different ways of specifying input distributions.
+
+## Specifying delay distributions
+
+Distributions can be specified in different ways:
+
+- as a discretised distribution stored as `distcrete` object,
+  e.g. generated via `make_disc_gamma`
+- as a function with a single argument (the delay) computing probability
+  mass function (pmf) of different delays
+- as a vector of $`n`$ positive numbers, taken to be the pmf of delays
+  of 0:($`n`$-1)
+
+We illustrate these different options below, with:
+
+- a flat distribution of the incubation time 1-4 days (all other values
+  have a null probability)
+- an infectious period defined as a discretised Gamma distribution
+  stored as a `distcrete` object
+- a reporting delay following a Poisson distribution, specified as a
+  function
+
+``` r
+
+library("simulacr")
+
+incubation <- c(0, 1, 1, 1, 1) # numbers = unscaled PMF
+infectious_period <- make_disc_gamma(10, 7) # distcrete object
+reporting <- function(x) dpois(x, 5) # PMF function
+```
+
+## Simulating an outbreak
+
+``` r
+
+set.seed(1)
+x <- simulate_outbreak(R = runif(100, 1, 3), # random values on [1;3]
+                       dist_incubation= incubation,
+                       dist_infectious_period = infectious_period,
+                       dist_reporting = reporting)
+```
+
+# Resources
+
+## Vignettes
+
+No vignette currently available.
+
+## Getting help online
+
+Bug reports and feature requests should be posted on *github* using the
+[*issue*](http://github.com/thibautjombart/simulacr/issues) system.
+
+Contributions are welcome via **pull requests**.
+
+Please note that this project is released with a [Contributor Code of
+Conduct](https://thibautjombart.github.io/simulacr/CONDUCT.md). By
+participating in this project you agree to abide by its terms.
+
+# Package index
+
+## All functions
+
+- [`draw_labels()`](https://thibautjombart.github.io/simulacr/reference/draw_labels.md)
+  : Genrate random labels
+- [`make_disc_gamma()`](https://thibautjombart.github.io/simulacr/reference/make_disc_gamma.md)
+  : Make a discretized gamma distribution
+- [`make_pmf_delay()`](https://thibautjombart.github.io/simulacr/reference/make_pmf_delay.md)
+  : Create a probability mass function.
+- [`make_rng_delay()`](https://thibautjombart.github.io/simulacr/reference/make_rng_delay.md)
+  : Turns a delay PMF into a random number generator
+- [`as_epicontacts()`](https://thibautjombart.github.io/simulacr/reference/outbreak_methods.md)
+  [`as.epicontacts()`](https://thibautjombart.github.io/simulacr/reference/outbreak_methods.md)
+  [`plot(`*`<outbreak>`*`)`](https://thibautjombart.github.io/simulacr/reference/outbreak_methods.md)
+  : Basic methods for outbreaks objects
+- [`simulate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak.md)
+  : Simulate outbreaks with transmission trees
+- [`simulate_outbreak_step()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak_step.md)
+  : Simulate epidemic spread for one time step
+
