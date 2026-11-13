@@ -98,7 +98,7 @@ res
 ```{r eval = FALSE}
 plot(res)
 ```
-<img src="https://github.com/thibautjombart/simulacr/raw/master/figures/plot_sim1.png" width="600px">
+<img src="https://github.com/thibautjombart/simulacr/raw/main/figures/plot_sim1.png" width="600px">
 
 Note: for the interactive version of this plot, check the simulacr [website](https://thibautjombart.github.io/simulacr/).
 
