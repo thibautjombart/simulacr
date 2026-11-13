@@ -80,18 +80,9 @@ simulate_outbreak <- function(
     label_size = 6) {
   
   ## Process/sanitize inputs
-  if (!is.numeric(n)) stop("n must be numeric")
-  if (!is.finite(n)) stop("n must be finite")
-  if (n < 1) stop("n must be >= 1")
-  n <- as.integer(n)
- 
-  if (!is.numeric(duration)) stop("duration must be numeric")
-  if (!is.finite(duration)) stop("duration must be finite")
-  if (duration < 1) stop("duration must be >= 1")
-  duration <- as.integer(duration)
-  
+  n <- process_n(n)
+  duration <- process_duration(duration)
   w <- make_pmf_delay(w)
- 
   tau <- process_tau(tau, n)
    
   ## Initialize the outbreak
