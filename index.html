@@ -69,52 +69,85 @@
 <div class="section level1">
 <h1 id="what-does-it-do">What does it do?<a class="anchor" aria-label="anchor" href="#what-does-it-do"></a>
 </h1>
-<p><em>simulacr</em> implements outbreak simulation using branching processes. The main features of the package include:</p>
+<p><em>simulacr</em> implements outbreak simulation using contact-driven branching processes. The main features of the package include:</p>
 <ul>
-<li><p><code>simulate_outbreak</code>: the main function, allowing to simulate outbreaks for specified values of reproduction number, incubation period, duration of infectiousness, and optionally reporting delays; it outputs a linelist stored as a <code>data.frame</code> with the class <code>outbreak</code>, including information on transmission chains; the output can be converted to <code>epicontacts</code> objects for visualisation, and plotted using <code>plot(...)</code></p></li>
-<li><p><code>as_epicontacts</code>: a function to convert <code>outbreak</code> object to <code>epicontact</code>; called implicitely when plotting <code>outbreak</code> objects</p></li>
-<li><p><code>make_disc_gamma</code>: wrapper function to build discretised Gamma distributions easily</p></li>
-<li><p><code>draw_labels</code>: wrapper function to generate random alphanumeric labels</p></li>
+<li><p><code><a href="reference/simulate_outbreak.html">simulate_outbreak()</a></code>: the main function, simulating epidemic spread using inputs on the generation time distribution, individual transmission rates, and contact matrices; it outputs a <code>simulacr</code> object, which is a list containing a linelist and a transmission tree, which can be converted to <code>epicontacts</code> objects for visualisation, and plotted using <code>plot(...)</code></p></li>
+<li><p><code><a href="reference/simulate_outbreak_step.html">simulate_outbreak_step()</a></code>: the step-wise version of the simulator, designed for calling from other packages</p></li>
+<li><p><code><a href="reference/make_pmf_delay.html">make_pmf_delay()</a></code>: to generate probability mass functions of delays distributions</p></li>
+<li><p><code><a href="reference/make_disc_gamma.html">make_disc_gamma()</a></code>: to build discretised Gamma distributions for delay distributions</p></li>
+<li><p><code><a href="reference/make_panmictic_contacts.html">make_panmictic_contacts()</a></code>: to generate a contact matrix assuming random mixing</p></li>
+<li><p><code><a href="reference/draw_labels.html">draw_labels()</a></code>: wrapper function to generate random alphanumeric labels</p></li>
 </ul>
 <p><br></p>
 </div>
 <div class="section level1">
 <h1 id="worked-example">Worked example<a class="anchor" aria-label="anchor" href="#worked-example"></a>
 </h1>
-<p>This brief example illustrates how we can simulate an outbreak, with different ways of specifying input distributions.</p>
-<div class="section level2">
-<h2 id="specifying-delay-distributions">Specifying delay distributions<a class="anchor" aria-label="anchor" href="#specifying-delay-distributions"></a>
-</h2>
-<p>Distributions can be specified in different ways:</p>
-<ul>
-<li>as a discretised distribution stored as <code>distcrete</code> object, e.g. generated via <code>make_disc_gamma</code>
-</li>
-<li>as a function with a single argument (the delay) computing probability mass function (pmf) of different delays</li>
-<li>as a vector of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> positive numbers, taken to be the pmf of delays of 0:(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-1)</li>
-</ul>
-<p>We illustrate these different options below, with:</p>
-<ul>
-<li>a flat distribution of the incubation time 1-4 days (all other values have a null probability)</li>
-<li>an infectious period defined as a discretised Gamma distribution stored as a <code>distcrete</code> object</li>
-<li>a reporting delay following a Poisson distribution, specified as a function</li>
-</ul>
+<p>This brief example illustrates how we can simulate an outbreak.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://thibautjombart.github.io/simulacr">"simulacr"</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">incubation</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># numbers = unscaled PMF</span></span>
-<span><span class="va">infectious_period</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_disc_gamma.html">make_disc_gamma</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">7</span><span class="op">)</span> <span class="co"># distcrete object</span></span>
-<span><span class="va">reporting</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">dpois</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">5</span><span class="op">)</span> <span class="co"># PMF function</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="simulating-an-outbreak">Simulating an outbreak<a class="anchor" aria-label="anchor" href="#simulating-an-outbreak"></a>
-</h2>
+<code class="sourceCode R"><span></span>
+<span><span class="co">## make a generation time distribution</span></span>
+<span><span class="va">gen_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/make_pmf_delay.html">make_pmf_delay</a></span><span class="op">(</span><span class="fu"><a href="reference/make_disc_gamma.html">make_disc_gamma</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="fu">gen_time</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"h"</span>, lend <span class="op">=</span> <span class="fl">2</span>, lwd <span class="op">=</span> <span class="fl">10</span>, </span>
+<span>  main <span class="op">=</span> <span class="st">"Generation time distribution"</span>, </span>
+<span>  xlab <span class="op">=</span> <span class="st">"Delay from primary to secondary infection (days)"</span>, </span>
+<span>  ylab <span class="op">=</span> <span class="st">"p(delay)"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png" alt="" width="100%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simulate_outbreak.html">simulate_outbreak</a></span><span class="op">(</span>R <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, <span class="co"># random values on [1;3]</span></span>
-<span>                       dist_incubation<span class="op">=</span> <span class="va">incubation</span>,</span>
-<span>                       dist_infectious_period <span class="op">=</span> <span class="va">infectious_period</span>,</span>
-<span>                       dist_reporting <span class="op">=</span> <span class="va">reporting</span><span class="op">)</span></span></code></pre></div>
-</div>
+<code class="sourceCode R"><span></span>
+<span><span class="co">## simulate an outbreak using random mixing </span></span>
+<span><span class="co">## (no contacts matrix provided -&gt; all individuals are in contact by default)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simulate_outbreak.html">simulate_outbreak</a></span><span class="op">(</span></span>
+<span>  n <span class="op">=</span> <span class="fl">100</span>, <span class="co"># 100 individuals in the population</span></span>
+<span>  duration <span class="op">=</span> <span class="fl">365</span>, <span class="co"># simulate for a year</span></span>
+<span>  w <span class="op">=</span> <span class="va">gen_time</span>, <span class="co"># generation time distribution</span></span>
+<span>  tau <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span><span class="op">)</span> <span class="co"># individual transmission rates, from 0.01 to 0.05</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "linelist" "tree"</span></span>
+<span><span class="va">res</span></span>
+<span><span class="co">#&gt; $linelist</span></span>
+<span><span class="co">#&gt; # A tibble: 100 × 4</span></span>
+<span><span class="co">#&gt;    id     casedef date_infection stringsAsFactors</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;            &lt;dbl&gt; &lt;lgl&gt;           </span></span>
+<span><span class="co">#&gt;  1 eLGzdD case                 1 FALSE           </span></span>
+<span><span class="co">#&gt;  2 8Tvbyj case                44 FALSE           </span></span>
+<span><span class="co">#&gt;  3 MQ90i6 case                45 FALSE           </span></span>
+<span><span class="co">#&gt;  4 RdzUUA case                43 FALSE           </span></span>
+<span><span class="co">#&gt;  5 kSVCEa case                30 FALSE           </span></span>
+<span><span class="co">#&gt;  6 Z42dvb case                46 FALSE           </span></span>
+<span><span class="co">#&gt;  7 YWzVgb case                40 FALSE           </span></span>
+<span><span class="co">#&gt;  8 EGjSAk case                51 FALSE           </span></span>
+<span><span class="co">#&gt;  9 6rcYKS case                34 FALSE           </span></span>
+<span><span class="co">#&gt; 10 VBW4HD case                33 FALSE           </span></span>
+<span><span class="co">#&gt; # ℹ 90 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $tree</span></span>
+<span><span class="co">#&gt; # A tibble: 91 × 3</span></span>
+<span><span class="co">#&gt;    from   to      date</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 &lt;NA&gt;   eLGzdD     1</span></span>
+<span><span class="co">#&gt;  2 eLGzdD LjuhEd    14</span></span>
+<span><span class="co">#&gt;  3 LjuhEd HmhA3k    18</span></span>
+<span><span class="co">#&gt;  4 LjuhEd J98DE8    23</span></span>
+<span><span class="co">#&gt;  5 HmhA3k Lwe2aP    23</span></span>
+<span><span class="co">#&gt;  6 LjuhEd MOZ5Ca    23</span></span>
+<span><span class="co">#&gt;  7 HmhA3k yKVg67    25</span></span>
+<span><span class="co">#&gt;  8 J98DE8 knhTUJ    25</span></span>
+<span><span class="co">#&gt;  9 MOZ5Ca 3eZzb4    25</span></span>
+<span><span class="co">#&gt; 10 HmhA3k UwrMJp    26</span></span>
+<span><span class="co">#&gt; # ℹ 81 more rows</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; attr(,"class")</span></span>
+<span><span class="co">#&gt; [1] "simulacr" "list"</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
+<p><img src="https://github.com/thibautjombart/simulacr/raw/master/figures/plot_sim1.png" width="600px"></p>
+<p>Note: for the interactive version of this plot, check the simulacr <a href="https://thibautjombart.github.io/simulacr/">website</a>.</p>
 </div>
 <div class="section level1">
 <h1 id="resources">Resources<a class="anchor" aria-label="anchor" href="#resources"></a>

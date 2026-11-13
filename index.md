@@ -24,71 +24,115 @@ Note that this requires the package *pak* to be installed.
 
 # What does it do?
 
-*simulacr* implements outbreak simulation using branching processes. The
-main features of the package include:
+*simulacr* implements outbreak simulation using contact-driven branching
+processes. The main features of the package include:
 
-- `simulate_outbreak`: the main function, allowing to simulate outbreaks
-  for specified values of reproduction number, incubation period,
-  duration of infectiousness, and optionally reporting delays; it
-  outputs a linelist stored as a `data.frame` with the class `outbreak`,
-  including information on transmission chains; the output can be
-  converted to `epicontacts` objects for visualisation, and plotted
-  using `plot(...)`
+- [`simulate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak.md):
+  the main function, simulating epidemic spread using inputs on the
+  generation time distribution, individual transmission rates, and
+  contact matrices; it outputs a `simulacr` object, which is a list
+  containing a linelist and a transmission tree, which can be converted
+  to `epicontacts` objects for visualisation, and plotted using
+  `plot(...)`
 
-- `as_epicontacts`: a function to convert `outbreak` object to
-  `epicontact`; called implicitely when plotting `outbreak` objects
+- [`simulate_outbreak_step()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak_step.md):
+  the step-wise version of the simulator, designed for calling from
+  other packages
 
-- `make_disc_gamma`: wrapper function to build discretised Gamma
-  distributions easily
+- [`make_pmf_delay()`](https://thibautjombart.github.io/simulacr/reference/make_pmf_delay.md):
+  to generate probability mass functions of delays distributions
 
-- `draw_labels`: wrapper function to generate random alphanumeric labels
+- [`make_disc_gamma()`](https://thibautjombart.github.io/simulacr/reference/make_disc_gamma.md):
+  to build discretised Gamma distributions for delay distributions
+
+- [`make_panmictic_contacts()`](https://thibautjombart.github.io/simulacr/reference/make_panmictic_contacts.md):
+  to generate a contact matrix assuming random mixing
+
+- [`draw_labels()`](https://thibautjombart.github.io/simulacr/reference/draw_labels.md):
+  wrapper function to generate random alphanumeric labels
 
   
 
 # Worked example
 
-This brief example illustrates how we can simulate an outbreak, with
-different ways of specifying input distributions.
-
-## Specifying delay distributions
-
-Distributions can be specified in different ways:
-
-- as a discretised distribution stored as `distcrete` object,
-  e.g. generated via `make_disc_gamma`
-- as a function with a single argument (the delay) computing probability
-  mass function (pmf) of different delays
-- as a vector of $`n`$ positive numbers, taken to be the pmf of delays
-  of 0:($`n`$-1)
-
-We illustrate these different options below, with:
-
-- a flat distribution of the incubation time 1-4 days (all other values
-  have a null probability)
-- an infectious period defined as a discretised Gamma distribution
-  stored as a `distcrete` object
-- a reporting delay following a Poisson distribution, specified as a
-  function
+This brief example illustrates how we can simulate an outbreak.
 
 ``` r
 
-library("simulacr")
 
-incubation <- c(0, 1, 1, 1, 1) # numbers = unscaled PMF
-infectious_period <- make_disc_gamma(10, 7) # distcrete object
-reporting <- function(x) dpois(x, 5) # PMF function
+## make a generation time distribution
+gen_time <- make_pmf_delay(make_disc_gamma(10, 7))
+plot(
+  gen_time(0:30), type = "h", lend = 2, lwd = 10, 
+  main = "Generation time distribution", 
+  xlab = "Delay from primary to secondary infection (days)", 
+  ylab = "p(delay)"
+)
 ```
 
-## Simulating an outbreak
+![](reference/figures/README-unnamed-chunk-2-1.png)
 
 ``` r
 
+
+## simulate an outbreak using random mixing 
+## (no contacts matrix provided -> all individuals are in contact by default)
 set.seed(1)
-x <- simulate_outbreak(R = runif(100, 1, 3), # random values on [1;3]
-                       dist_incubation= incubation,
-                       dist_infectious_period = infectious_period,
-                       dist_reporting = reporting)
+res <- simulate_outbreak(
+  n = 100, # 100 individuals in the population
+  duration = 365, # simulate for a year
+  w = gen_time, # generation time distribution
+  tau = runif(100, 0.01, 0.05) # individual transmission rates, from 0.01 to 0.05
+)
+
+names(res)
+#> [1] "linelist" "tree"
+res
+#> $linelist
+#> # A tibble: 100 × 4
+#>    id     casedef date_infection stringsAsFactors
+#>    <chr>  <chr>            <dbl> <lgl>           
+#>  1 eLGzdD case                 1 FALSE           
+#>  2 8Tvbyj case                44 FALSE           
+#>  3 MQ90i6 case                45 FALSE           
+#>  4 RdzUUA case                43 FALSE           
+#>  5 kSVCEa case                30 FALSE           
+#>  6 Z42dvb case                46 FALSE           
+#>  7 YWzVgb case                40 FALSE           
+#>  8 EGjSAk case                51 FALSE           
+#>  9 6rcYKS case                34 FALSE           
+#> 10 VBW4HD case                33 FALSE           
+#> # ℹ 90 more rows
+#> 
+#> $tree
+#> # A tibble: 91 × 3
+#>    from   to      date
+#>    <chr>  <chr>  <dbl>
+#>  1 <NA>   eLGzdD     1
+#>  2 eLGzdD LjuhEd    14
+#>  3 LjuhEd HmhA3k    18
+#>  4 LjuhEd J98DE8    23
+#>  5 HmhA3k Lwe2aP    23
+#>  6 LjuhEd MOZ5Ca    23
+#>  7 HmhA3k yKVg67    25
+#>  8 J98DE8 knhTUJ    25
+#>  9 MOZ5Ca 3eZzb4    25
+#> 10 HmhA3k UwrMJp    26
+#> # ℹ 81 more rows
+#> 
+#> attr(,"class")
+#> [1] "simulacr" "list"
 ```
+
+``` r
+
+plot(res)
+```
+
+![](https://github.com/thibautjombart/simulacr/raw/master/figures/plot_sim1.png)
+
+Note: for the interactive version of this plot, check the simulacr
+[website](https://thibautjombart.github.io/simulacr/).
 
 # Resources
 
