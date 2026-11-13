@@ -84,6 +84,9 @@ simulate_outbreak <- function(
   duration <- process_duration(duration)
   w <- make_pmf_delay(w)
   tau <- process_tau(tau, n)
+  if (is.null(contacts)) {
+    contacts <- make_panmictic_contacts(n)
+  }
   contacts <- process_contacts(contacts, n, duration)
   labels <- draw_labels(n, size = label_size)
    
