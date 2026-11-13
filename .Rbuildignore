@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
+^README\.html$
 ^README\.md
 ^README-.*\.png$
 ^\.travis\.yml$
@@ -9,7 +10,7 @@
 ^codecov\.yml$
 ^cran-comments\.md$
 ^docs/
-^figure/
+^figures/
 ^LICENSE\.md$
 ^CODE_OF_CONDUCT\.md$
 ^\.github$

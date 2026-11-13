@@ -28,10 +28,10 @@ secondary infections take place exactly 1 time step after the primary
 infection).}
 
 \item{tau}{A numeric vector of length \code{n} containing individual transmission
-rates; a single value will be recycled; defaults to 0 (no transmission).
+rates; a single value will be recycled; defaults to 0 (no transmission).}
 
-@param contacts Contacts between all individuals in the population. It can
-be specified in two ways: i) an n x n matrix where entries correspond to
+\item{contacts}{Contacts between all individuals in the population. It can be
+specified in two ways: i) an n x n matrix where entries correspond to
 contact presence or intensities, or ii) a function with a single argument
 \code{t} (time step) generating such matrix at each time step. If \code{NULL}
 (default), we assume random-mixing in the population, i.e. all individuals

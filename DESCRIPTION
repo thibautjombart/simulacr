@@ -15,7 +15,8 @@ Imports:
     distcrete,
     epicontacts,
     epitrix,
-    stringi
+    stringi,
+    tibble
 URL: https://thibautjombart.github.io/simulacr
 BugReports: https://github.com/reconhub/simulacr/issues
 VignetteBuilder: knitr

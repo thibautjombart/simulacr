@@ -32,12 +32,12 @@
 #' @param tau A numeric vector of length `n` containing individual transmission 
 #'   rates; a single value will be recycled; defaults to 0 (no transmission).
 #'   
-#'  @param contacts Contacts between all individuals in the population. It can
-#'    be specified in two ways: i) an n x n matrix where entries correspond to
-#'    contact presence or intensities, or ii) a function with a single argument
-#'    `t` (time step) generating such matrix at each time step. If `NULL`
-#'    (default), we assume random-mixing in the population, i.e. all individuals
-#'    are in contact at every time step.
+#' @param contacts Contacts between all individuals in the population. It can be
+#'   specified in two ways: i) an n x n matrix where entries correspond to
+#'   contact presence or intensities, or ii) a function with a single argument
+#'   `t` (time step) generating such matrix at each time step. If `NULL`
+#'   (default), we assume random-mixing in the population, i.e. all individuals
+#'   are in contact at every time step.
 #'   
 #' @param label_size An `integer` indicating the length of the labels generated
 #'   by `[draw_labels()]`, used as unique individual identifiers. Defaults to 6.
@@ -129,8 +129,7 @@ simulate_outbreak <- function(
   linelist <- tibble::tibble(
     id = labels,
     casedef = casedef,
-    date_infection = date_infection,
-    stringsAsFactors = FALSE
+    date_infection = date_infection
   )
   out <- list(
     linelist = linelist,

@@ -6,7 +6,8 @@
 #' @author Thibaut Jombart
 #' 
 #' @export
-#' 
+#'   
+#' @param n An `integer` indicating the number of individuals in the population.
 #' 
 make_panmictic_contacts <- function(n) {
   n <- process_n(n)

@@ -6,6 +6,9 @@
 \usage{
 make_panmictic_contacts(n)
 }
+\arguments{
+\item{n}{An \code{integer} indicating the number of individuals in the population.}
+}
 \description{
 This function creates a contact matrix for a panmictic (i.e. random-mixing)
 population, where every individual is in contact with every other individual.

@@ -10,6 +10,10 @@
 #'    are in contact at every time step.
 #'   
 #' @param n An `integer` indicating the number of individuals in the population.
+#' 
+#' @param duration An `integer` indicating the number of time steps to run the
+#'   simulation for; defaults to 1L (i.e. only the initial infection is
+#'   generated).
 #'   
 #' @returns a function of time (t) returning a contact matrix
 #'
