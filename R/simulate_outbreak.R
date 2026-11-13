@@ -126,7 +126,7 @@ simulate_outbreak <- function(
   casedef <- rep("non_case", n)
   casedef[I] <- "case"
   
-  linelist <- data.frame(
+  linelist <- tibble::tibble(
     id = labels,
     casedef = casedef,
     date_infection = date_infection,
@@ -134,7 +134,7 @@ simulate_outbreak <- function(
   )
   out <- list(
     linelist = linelist,
-    tree = tree
+    tree = tibble::tibble(tree)
   )
   class(out) <- c("simulacr", class(out))
   out
