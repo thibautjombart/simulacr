@@ -1,12 +1,7 @@
 # Welcome to the *simulacr* package!
 
-[![Codecov test
-coverage](https://codecov.io/gh/thibautjombart/simulacr/graph/badge.svg)](https://app.codecov.io/gh/thibautjombart/simulacr)
-
-![Test
-coverage](https://raw.githubusercontent.com/thibautjombart/simulacr/badges/coverage.svg)
-
-Test coverage
+[![Coverage
+Status](https://codecov.io/gh/thibautjombart/simulacr/branch/main/graph/badge.svg?token=)](https://app.codecov.io/github/thibautjombart/simulacr?branch=main)
 
 This package is under development. Do not use it without contacting the
 authors first.
