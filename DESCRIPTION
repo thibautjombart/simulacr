@@ -16,7 +16,7 @@ Imports:
     epicontacts,
     epitrix,
     stringi
-URL: https://github.com/reconhub/simulacr
+URL: https://thibautjombart.github.io/simulacr
 BugReports: https://github.com/reconhub/simulacr/issues
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

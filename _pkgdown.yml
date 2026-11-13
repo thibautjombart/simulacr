@@ -1,4 +1,21 @@
-url: ~
+url: https://thibautjombart.github.io/simulacr/
 template:
   bootstrap: 5
+  
+home:
+  title: "simulacr"
+  description: "Simulating and analysing infectious disease outbreaks"
+  author: "Thibaut Jombart"
+  navbar:
+    structure:
+      left:
+        - text: "Home"
+          href: index.html
+        - text: "Reference"
+          href: reference/index.html
+        - text: "Articles"
+          href: articles/index.html
+        - text: "News"
+          href: news/index.html
+
 
