@@ -3,6 +3,11 @@
 [![Codecov test
 coverage](https://codecov.io/gh/thibautjombart/simulacr/graph/badge.svg)](https://app.codecov.io/gh/thibautjombart/simulacr)
 
+![Test
+coverage](https://raw.githubusercontent.com/thibautjombart/simulacr/badges/coverage.svg)
+
+Test coverage
+
 This package is under development. Do not use it without contacting the
 authors first.
 
