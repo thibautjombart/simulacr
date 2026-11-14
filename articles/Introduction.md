@@ -76,32 +76,32 @@ res
 #>    id     casedef date_infection
 #>    <chr>  <chr>            <dbl>
 #>  1 eLGzdD case                 1
-#>  2 8Tvbyj case                44
-#>  3 MQ90i6 case                45
-#>  4 RdzUUA case                43
-#>  5 kSVCEa case                30
-#>  6 Z42dvb case                46
-#>  7 YWzVgb case                40
-#>  8 EGjSAk case                51
-#>  9 6rcYKS case                34
-#> 10 VBW4HD case                33
+#>  2 8Tvbyj case                40
+#>  3 MQ90i6 case                33
+#>  4 RdzUUA case                25
+#>  5 kSVCEa case                45
+#>  6 Z42dvb case                32
+#>  7 YWzVgb case                44
+#>  8 EGjSAk case                31
+#>  9 6rcYKS case                52
+#> 10 VBW4HD case                51
 #> # ℹ 90 more rows
 #> 
 #> $tree
-#> # A tibble: 91 × 3
+#> # A tibble: 96 × 3
 #>    from   to      date
 #>    <chr>  <chr>  <dbl>
 #>  1 NA     eLGzdD     1
-#>  2 eLGzdD LjuhEd    14
-#>  3 LjuhEd HmhA3k    18
-#>  4 LjuhEd J98DE8    23
-#>  5 HmhA3k Lwe2aP    23
-#>  6 LjuhEd MOZ5Ca    23
-#>  7 HmhA3k yKVg67    25
-#>  8 J98DE8 knhTUJ    25
-#>  9 MOZ5Ca 3eZzb4    25
-#> 10 HmhA3k UwrMJp    26
-#> # ℹ 81 more rows
+#>  2 eLGzdD LjuhEd    13
+#>  3 LjuhEd HmhA3k    17
+#>  4 LjuhEd J98DE8    22
+#>  5 HmhA3k Lwe2aP    22
+#>  6 LjuhEd MOZ5Ca    22
+#>  7 MOZ5Ca yKVg67    24
+#>  8 HmhA3k knhTUJ    24
+#>  9 J98DE8 3eZzb4    24
+#> 10 Lwe2aP RdzUUA    25
+#> # ℹ 86 more rows
 #> 
 #> attr(,"class")
 #> [1] "simulacr" "list"
