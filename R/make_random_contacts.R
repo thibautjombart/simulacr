@@ -72,7 +72,7 @@ make_random_contacts <- function(n, rate = 0, binary_output = FALSE) {
     sample(pool[-id], n, replace = TRUE)    
   }
   
-  n_contacts <- rpois(n, rate)
+  n_contacts <- stats::rpois(n, rate)
   id_have_contacts <- which(n_contacts > 0)
   out <- matrix(0, nrow = n, ncol = n)
   
