@@ -106,13 +106,13 @@ test_that(
     expect_identical(res$S, !res$I)
     expect_equal(sum(res$I[c(1, 5, 6, 8)]), 4)
     expect_equal(sum(res$I[-c(1, 5, 6, 8)]), 0)
-    expect_equal(res$date_infection, c(1, -1, -1, -1, 4, 4, -1, 4, -1, -1))
+    expect_equal(res$date_infection, c(1, -1, -1, -1, 3, 3, -1, 3, -1, -1))
     expect_equal(nrow(res$tree), 3L)
     expect_equal(ncol(res$tree), 3L)
     expect_identical(names(res$tree), c("from", "to", "date"))
     expect_equal(res$tree$from, rep("a", 3))
     expect_equal(res$tree$to, labels[c(5,6,8)])
-    expect_equal(res$tree$date, rep(4, 3))
+    expect_equal(res$tree$date, rep(3, 3))
 
     
     ## Time-varying infectivity. Here we have 3 infected individuals but
@@ -147,13 +147,13 @@ test_that(
     
     expect_identical(res$S, !res$I)
     expect_true(all(res$I))
-    expect_equal(res$date_infection, c(1, 33, 30, 25, 33, 33, 33, 33, 33))
+    expect_equal(res$date_infection, c(1, 32, 30, 25, 32, 32, 32, 32, 32))
     expect_equal(nrow(res$tree), 6L)
     expect_equal(ncol(res$tree), 3L)
     expect_identical(names(res$tree), c("from", "to", "date"))
     expect_equal(res$tree$from, rep("d", 6))
     expect_equal(res$tree$to, labels[-c(1,3,4)])
-    expect_equal(res$tree$date, rep(33, 6))
+    expect_equal(res$tree$date, rep(32, 6))
    
     
     ## Differences in infectiousness make some cases more often infectors than
@@ -187,11 +187,11 @@ test_that(
     
     expect_identical(res$S, !res$I)
     expect_true(all(res$I))
-    expect_equal(res$date_infection, rep(c(1,6), c(2, 998)))
+    expect_equal(res$date_infection, rep(c(1,5), c(2, 998)))
     expect_equal(nrow(res$tree), 998)
     expect_equal(ncol(res$tree), 3L)
     expect_identical(names(res$tree), c("from", "to", "date"))
-    expect_equal(res$tree$date, rep(6, 998))
+    expect_equal(res$tree$date, rep(5, 998))
     freq_inf_1 <- sum(res$tree$from == 1)
     freq_inf_2 <- sum(res$tree$from == 2)
     expect_true(freq_inf_1 / freq_inf_2 > 1.5)
