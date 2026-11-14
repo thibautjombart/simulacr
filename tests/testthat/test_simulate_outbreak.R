@@ -160,5 +160,18 @@ test_that(
     expect_identical(res$tree$from[-1], res$linelist$id[1:9])
     expect_identical(res$tree$to, res$linelist$id)
     
-  }
+    
+    ## same, but stops at t = 6 when contacts go to 0
+    offdiag_C <- C
+    contacts <- function(t) {
+      if (t < 6) {
+        return(offdiag_C)
+      } else {
+        return(matrix(0, ncol = ncol(offdiag_C), nrow = nrow(offdiag_C)))
+      }
+    }
+    res <- simulate_outbreak(10, 12, contacts = contacts, tau = 1e4, w = c(0, 1))
+    expect_equal(res$tree$date, 1:5)
+    expect_equal(res$linelist$date_infection, c(1:5, rep(-1, 5)))
+  } 
 )
