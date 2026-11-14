@@ -10,6 +10,8 @@
   : Create a panmictic contact matrix
 - [`make_pmf_delay()`](https://thibautjombart.github.io/simulacr/reference/make_pmf_delay.md)
   : Create a probability mass function.
+- [`make_random_contacts()`](https://thibautjombart.github.io/simulacr/reference/make_random_contacts.md)
+  : Create a contact matrix according to individual contact rates
 - [`make_rng_delay()`](https://thibautjombart.github.io/simulacr/reference/make_rng_delay.md)
   : Turns a delay PMF into a random number generator
 - [`process_contacts()`](https://thibautjombart.github.io/simulacr/reference/process_contacts.md)
