@@ -9,9 +9,17 @@ make_panmictic_contacts(n)
 \arguments{
 \item{n}{An \code{integer} indicating the number of individuals in the population.}
 }
+\value{
+An n x n matrix of contacts indicated as presence (1) or absence (0)
+; sources are in rows, recipients in column.
+}
 \description{
 This function creates a contact matrix for a panmictic (i.e. random-mixing)
 population, where every individual is in contact with every other individual.
+}
+\examples{
+make_panmictic_contacts(5)
+
 }
 \author{
 Thibaut Jombart
