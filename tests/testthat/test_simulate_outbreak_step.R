@@ -197,5 +197,45 @@ test_that(
     expect_true(freq_inf_1 / freq_inf_2 > 1.5)
     expect_true(freq_inf_1 / freq_inf_2 < 2.5)
     
+    
+    ## Test that spread occurs next day for w = c(0, 1)
+    ## There is one newly infected individual at t = 11
+    ## There should be:
+    ## - no further spread at t=11
+    ## - all others should get infected at t=12
+    
+    labels <- letters[1:13]
+    S <- c(FALSE, rep(TRUE, 12))
+    I <- !S
+    date_infection <- c(11, rep(-1L, 12))
+    C <- matrix(1, 13, 13)
+    diag(C) <- 0
+    tau <- 1e5 # very high rates
+    w <- make_pmf_delay(0:1)
+    
+    res <- simulate_outbreak_step(
+      t = 11, 
+      labels = labels, 
+      S = S, 
+      I = I, 
+      date_infection = date_infection, 
+      C = C, 
+      tau = tau, 
+      w = w
+    )
+    expect_equal(nrow(res$tree), 0L)
+    
+    res <- simulate_outbreak_step(
+      t = 12, 
+      labels = labels, 
+      S = S, 
+      I = I, 
+      date_infection = date_infection, 
+      C = C, 
+      tau = tau, 
+      w = w
+    )
+    expect_equal(nrow(res$tree), 12L)
+    expect_equal(res$date_infection, c(11, rep(12, 12)))
   }
 )

@@ -109,11 +109,11 @@ simulate_outbreak_step <- function(
   out_I <- I | new_infected
   out_S <- S & !new_infected
   out_date_infection <- date_infection
-  out_date_infection[new_infected] <- t + 1
+  out_date_infection[new_infected] <- t
   out_tree <- data.frame(
     from = new_infector_lab, 
     to = labels[new_infected],
-    date = rep(t + 1, sum(new_infected))
+    date = rep(t, sum(new_infected))
   )
   
   list(
