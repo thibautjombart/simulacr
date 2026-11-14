@@ -127,5 +127,51 @@ test_that(
     expect_true(is.na(res$tree$from[1]))
     expect_equal(nrow(res$tree), 1)
     
-  }
+    
+    ## no spread in the absence of contacts   
+    res <- simulate_outbreak(10, 100, contacts = matrix(0, ncol = 10, nrow = 10), tau = 1000)
+    expect_equal(nrow(res$tree), 1)
+    expect_equal(res$linelist$casedef[1], "case")
+    expect_true(all(res$linelist$casedef[-1] == "non_case"))
+    
+    
+    ## no spread with tau = 0
+    res <- simulate_outbreak(23, 100, tau = 0)
+    expect_equal(nrow(res$tree), 1)
+    expect_equal(res$linelist$casedef[1], "case")
+    expect_true(all(res$linelist$casedef[-1] == "non_case"))
+    
+    
+    ## total spread with high tau
+    res <- simulate_outbreak(69, 70, tau = 1e4)
+    expect_equal(nrow(res$tree), 69)
+    expect_true(all(res$linelist$casedef == "case"))
+    
+    
+    ## spread one individual at a time with an off diagonal 1 contact matrix
+    C <- matrix(0, ncol = 10, nrow = 10)
+    for (i in 1:9) {
+      C[i, i + 1] <- 1
+    }
+    res <- simulate_outbreak(10, 12, contacts = C, tau = 1e4, w = c(0, 1))
+    expect_equal(res$linelist$date_infection, 1:10)
+    expect_equal(res$tree$date, 1:10)
+    expect_true(all(res$linelist$casedef == "case"))
+    expect_identical(res$tree$from[-1], res$linelist$id[1:9])
+    expect_identical(res$tree$to, res$linelist$id)
+    
+    
+    ## same, but stops at t = 6 when contacts go to 0
+    offdiag_C <- C
+    contacts <- function(t) {
+      if (t < 6) {
+        return(offdiag_C)
+      } else {
+        return(matrix(0, ncol = ncol(offdiag_C), nrow = nrow(offdiag_C)))
+      }
+    }
+    res <- simulate_outbreak(10, 12, contacts = contacts, tau = 1e4, w = c(0, 1))
+    expect_equal(res$tree$date, 1:5)
+    expect_equal(res$linelist$date_infection, c(1:5, rep(-1, 5)))
+  } 
 )
