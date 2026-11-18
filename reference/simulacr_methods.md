@@ -19,7 +19,14 @@ as_epicontacts(...)
 as.epicontacts(...)
 
 # S3 method for class 'simulacr'
-as_epicontacts(x, ...)
+as_epicontacts(x, cases_only = FALSE, ...)
+
+as_igraph(...)
+
+as.igraph(...)
+
+# S3 method for class 'simulacr'
+as_igraph(x, cases_only = FALSE, ...)
 
 # S3 method for class 'simulacr'
 plot(x, method = c("visNetwork", "igraph"), ...)
@@ -39,6 +46,11 @@ plot(x, method = c("visNetwork", "igraph"), ...)
 
   A `simulacr` object returned by
   [`simulate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak.md).
+
+- cases_only:
+
+  A `logical` indicating if cases only should be included in the
+  converted object; defaults to `FALSE`.
 
 - method:
 

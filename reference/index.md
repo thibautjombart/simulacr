@@ -24,6 +24,8 @@
   : Check/process input of transmission rates
 - [`as_epicontacts()`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
   [`as.epicontacts()`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
+  [`as_igraph()`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
+  [`as.igraph()`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
   [`plot(`*`<simulacr>`*`)`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
   : Basic methods for simulacr objects
 - [`simulate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak.md)
