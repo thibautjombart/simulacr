@@ -31,10 +31,6 @@
 #'   contacts = make_random_contacts(100, 5)
 #' )
 #' 
-#' ## conversions to epicontacts and igraph
-#' as_epicontacts(x)
-#' as_igraph(x)
-#' 
 #' ## plot the outbreak using the default interactive method
 #' plot(x)
 #' 
@@ -59,7 +55,7 @@ plot.simulacr <- function(x, method = c("visNetwork", "igraph", "tree"),
   if (method == "visNetwork") {
     type_pal <- grDevices::colorRampPalette(c("#ff8080", "#c2d6d6"))
     args <- list(
-      x = as.epicontacts(x, cases_only = cases_only),
+      x = as_epicontacts(x, cases_only = cases_only),
       method = "visNetwork",
       node_color = "casedef",
       col_pal = type_pal,

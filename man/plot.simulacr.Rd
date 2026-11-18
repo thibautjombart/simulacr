@@ -34,10 +34,6 @@ x <- simulate_outbreak(
   contacts = make_random_contacts(100, 5)
 )
 
-## conversions to epicontacts and igraph
-as_epicontacts(x)
-as_igraph(x)
-
 ## plot the outbreak using the default interactive method
 plot(x)
 
