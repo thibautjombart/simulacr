@@ -1,92 +1,26 @@
-#' Basic methods for simulacr objects
+#' Plotting method for simulacr objects
 #'
-#' These functions implement basic methods for simulacr objects as returned by
-#' [simulate_outbreak()]. They include:
-#' * `as_epicontacts`: conversion to `epicontacts` object
-#' * `as.epicontacts`: alias for `as_epicontacts`
-#' * `plot`: interactive or static transmission tree plots
-#'
-#' @rdname simulacr_methods
-#'
-#' @aliases as_epicontacts.simulacr as.epicontacts.simulacr as_igraph.simulacr as.igraph.simulacr
+#'The plot method for simulacr objects can be used to produce different types of 
+#' graphs, either interactive (by default) or static.
 #'
 #' @export
+#'
+#' @author Thibaut Jombart, Cyril Geismar
+#'
+#' @importFrom graphics plot
 #'
 #' @param x A `simulacr` object returned by [simulate_outbreak()].
-#' 
-#' @param cases_only A `logical` indicating if cases only should be included in
-#'   the converted object; defaults to `FALSE`.
 #'
-
-## CONVERSION METHODS: TO EPICONTACTS
-as_epicontacts <- function(...) {
-  UseMethod("as_epicontacts")
-}
-
-
-#' @rdname simulacr_methods
-#' @export
-#' 
-as.epicontacts <- as_epicontacts
-
-
-#' @rdname simulacr_methods
-#' @export
-#' 
-as_epicontacts.simulacr <- function(x, cases_only = FALSE, ...) {
-  if (cases_only) {
-    x$linelist <- x$linelist[x$linelist$casedef == "case", , drop = FALSE]
-  }
-  epicontacts::make_epicontacts(
-    linelist = x$linelist,
-    contacts = x$tree,
-    directed = TRUE
-  )
-}
-
-
-## CONVERSION METHODS: TO IGRAPH
-#' @rdname simulacr_methods
-#' @export
-#' 
-as_igraph <- function(...) {
-  UseMethod("as_igraph")
-}
-
-
-#' @rdname simulacr_methods
-#' @export
-#' 
-as.igraph <- as_igraph
-
-
-#' @rdname simulacr_methods
-#' @export
-#' 
-as_igraph.simulacr <- function(x, cases_only = FALSE, ...) {
-  edges <- x$tree[!is.na(x$tree$from), , drop = FALSE]
-  if (cases_only) {
-    x$linelist <- x$linelist[x$linelist$casedef == "case", , drop = FALSE]
-  }
-  igraph::graph_from_data_frame(
-    d = edges,
-    directed = TRUE,
-    vertices = x$linelist
-  )
-}
- 
-
-
-## PLOTTING METHODS
-#' @rdname simulacr_methods
-#' @export
-#' @importFrom graphics plot
 #' @param method A character string indicating the plotting method:
 #'   `"visNetwork"` (default) for an interactive plot, `"igraph"` for a static 
 #'   graph, or `"tree"` for a static tree with a time axis (also uses igraph).
 #' @param ... For `plot`, further arguments passed to
 #'   [epicontacts::plot.epicontacts()] or [igraph::plot.igraph()].
 #'   For "tree", `rescale = FALSE` and `asp = 0` are fixed.
+#' 
+#' @param cases_only A `logical` indicating if cases only should be included in
+#'   the converted object; defaults to `FALSE`. Fixed to `TRUE` if `method` is 
+#'   "tree"
 #'   
 #' @examples
 #' 
@@ -117,14 +51,15 @@ as_igraph.simulacr <- function(x, cases_only = FALSE, ...) {
 #'   vertex.shape = "circle", vertex.size = 20,  vertex.label.cex = 1.5   
 #' )
 
-plot.simulacr <- function(x, method = c("visNetwork", "igraph", "tree"), ...) {
+plot.simulacr <- function(x, method = c("visNetwork", "igraph", "tree"), 
+                          cases_only = FALSE, ...) {
   method <- match.arg(method)
 
   ## method for interactive plot using visNetwork
   if (method == "visNetwork") {
     type_pal <- grDevices::colorRampPalette(c("#ff8080", "#c2d6d6"))
     args <- list(
-      x = as.epicontacts(x),
+      x = as.epicontacts(x, cases_only = cases_only),
       method = "visNetwork",
       node_color = "casedef",
       col_pal = type_pal,
@@ -137,7 +72,7 @@ plot.simulacr <- function(x, method = c("visNetwork", "igraph", "tree"), ...) {
 
   ## method for a static graph using igraph
   if (method == "igraph") {
-    out <- as_igraph(x)
+    out <- as_igraph(x, cases_only = cases_only)
     casedef_color <- c("case" = "#ff8080", "non_case" = "#c2d6d6")
     colors <- casedef_color[igraph::V(out)$casedef]
     args <- list(
