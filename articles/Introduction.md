@@ -15,8 +15,8 @@ processes. The main features of the package include:
   generation time distribution, individual transmission rates, and
   contact matrices; it outputs a `simulacr` object, which is a list
   containing a linelist and a transmission tree, which can be converted
-  to `epicontacts` objects for visualisation, and plotted using
-  `plot(...)`
+  to `epicontacts` or `igraph` objects, and plotted using
+  [`plot()`](https://rdrr.io/r/graphics/plot.default.html)
 
 - [`simulate_outbreak_step()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak_step.md):
   the step-wise version of the simulator, designed for calling from

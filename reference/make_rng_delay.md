@@ -36,7 +36,7 @@ Thibaut Jombart
 # RNG from a poisson distribution
 r_delay <- make_rng_delay(function(x) dpois(x, 2.5))
 r_delay(10)
-#>  [1] 6 3 1 5 5 2 4 3 1 4
+#>  [1] 1 4 0 0 2 2 3 3 4 4
 summary(r_delay(1e4))
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #>   0.000   1.000   2.000   2.506   3.000  10.000 
@@ -44,9 +44,9 @@ summary(r_delay(1e4))
 # RNG from an empirical weight distribution
 r_delay <- make_rng_delay(c(0, 1, 1, 2, 4, 2, 1, 1, 0.5, 0.2))
 r_delay(10)
-#>  [1] 4 2 2 4 3 3 2 5 4 5
+#>  [1] 4 5 3 2 3 4 5 7 1 6
 summary(r_delay(1e4))
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   1.000   3.000   4.000   4.219   5.000   9.000 
+#>    1.00    3.00    4.00    4.22    5.00    9.00 
 barplot(table(r_delay(1000)))
 ```

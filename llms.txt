@@ -151,6 +151,10 @@ participating in this project you agree to abide by its terms.
 
 ## All functions
 
+- [`as_epicontacts()`](https://thibautjombart.github.io/simulacr/reference/as_epicontacts.md)
+  : Convert simulacr objects to epicontacts
+- [`as_igraph()`](https://thibautjombart.github.io/simulacr/reference/as_igraph.md)
+  : Convert simulacr objects to igraph
 - [`draw_labels()`](https://thibautjombart.github.io/simulacr/reference/draw_labels.md)
   : Genrate random labels
 - [`make_disc_gamma()`](https://thibautjombart.github.io/simulacr/reference/make_disc_gamma.md)
@@ -163,6 +167,8 @@ participating in this project you agree to abide by its terms.
   : Create a contact matrix according to individual contact rates
 - [`make_rng_delay()`](https://thibautjombart.github.io/simulacr/reference/make_rng_delay.md)
   : Turns a delay PMF into a random number generator
+- [`plot(`*`<simulacr>`*`)`](https://thibautjombart.github.io/simulacr/reference/plot.simulacr.md)
+  : Plotting method for simulacr objects
 - [`process_contacts()`](https://thibautjombart.github.io/simulacr/reference/process_contacts.md)
   : Check/process input of contacts
 - [`process_duration()`](https://thibautjombart.github.io/simulacr/reference/process_duration.md)
@@ -171,12 +177,6 @@ participating in this project you agree to abide by its terms.
   : Check/process input of population size
 - [`process_tau()`](https://thibautjombart.github.io/simulacr/reference/process_tau.md)
   : Check/process input of transmission rates
-- [`as_epicontacts()`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
-  [`as.epicontacts()`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
-  [`as_igraph()`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
-  [`as.igraph()`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
-  [`plot(`*`<simulacr>`*`)`](https://thibautjombart.github.io/simulacr/reference/simulacr_methods.md)
-  : Basic methods for simulacr objects
 - [`simulate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak.md)
   : Simulate outbreaks with transmission trees
 - [`simulate_outbreak_step()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak_step.md)
