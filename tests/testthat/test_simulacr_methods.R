@@ -59,7 +59,7 @@ test_that(
 
 
 
-test_that("igraph plots preserve edges and infection times", {
+test_that("tree plots preserve edges and infection times", {
   x <- structure(
     list(
       linelist = data.frame(
@@ -82,7 +82,7 @@ test_that("igraph plots preserve edges and infection times", {
   draw <- function() {
     grDevices::pdf(NULL)
     on.exit(grDevices::dev.off())
-    plot(x, method = "igraph")
+    plot(x, method = "tree")
   }
   out <- draw()
 
