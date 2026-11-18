@@ -14,13 +14,18 @@ as.epicontacts(...)
 
 \method{as_epicontacts}{simulacr}(x, ...)
 
-\method{plot}{simulacr}(x, ...)
+\method{plot}{simulacr}(x, method = c("visNetwork", "igraph"), ...)
 }
 \arguments{
-\item{...}{for \code{plot}, arguments passed to \code{plot.epicontacts} in the
-\code{epicontacts} package.}
+\item{...}{For \code{plot}, further arguments passed to
+\code{\link[epicontacts:plot.epicontacts]{epicontacts::plot.epicontacts()}} or \code{\link[igraph:plot.igraph]{igraph::plot.igraph()}}.
+For igraph, \code{rescale = FALSE} and \code{asp = 0} are fixed.}
 
-\item{x}{an object to be converted to \code{epicontacts}}
+\item{x}{A \code{simulacr} object returned by \code{\link[=simulate_outbreak]{simulate_outbreak()}}.}
+
+\item{method}{A character string indicating the plotting method:
+\code{"visNetwork"} (default) for an interactive plot, or \code{"igraph"} for a static
+tree with a time axis.}
 }
 \description{
 These functions implement basic methods for simulacr objects as returned by
@@ -28,5 +33,6 @@ These functions implement basic methods for simulacr objects as returned by
 \itemize{
 \item \code{as_epicontacts}: conversion to \code{epicontacts} object
 \item \code{as.epicontacts}: alias for \code{as_epicontacts}
+\item \code{plot}: interactive or static transmission tree plots
 }
 }

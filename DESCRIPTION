@@ -16,6 +16,7 @@ Imports:
     distcrete,
     epicontacts,
     epitrix,
+    igraph,
     stringi,
     tibble
 URL: https://thibautjombart.github.io/simulacr
