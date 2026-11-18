@@ -3,11 +3,13 @@
 simulate_outbreak(). They include:
 as_epicontacts: conversion to epicontacts object
 as.epicontacts: alias for as_epicontacts
+plot: interactive or static transmission tree plots
 
 "><meta property="og:description" content="These functions implement basic methods for simulacr objects as returned by
 simulate_outbreak(). They include:
 as_epicontacts: conversion to epicontacts object
 as.epicontacts: alias for as_epicontacts
+plot: interactive or static transmission tree plots
 
 "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -51,6 +53,7 @@ as.epicontacts: alias for as_epicontacts
     <p>These functions implement basic methods for simulacr objects as returned by
 <code><a href="simulate_outbreak.html">simulate_outbreak()</a></code>. They include:</p><ul><li><p><code>as_epicontacts</code>: conversion to <code>epicontacts</code> object</p></li>
 <li><p><code>as.epicontacts</code>: alias for <code>as_epicontacts</code></p></li>
+<li><p><code>plot</code>: interactive or static transmission tree plots</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -63,7 +66,7 @@ as.epicontacts: alias for as_epicontacts
 <span><span class="fu">as_epicontacts</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'simulacr'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"visNetwork"</span>, <span class="st">"igraph"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,12 +74,19 @@ as.epicontacts: alias for as_epicontacts
 
 
 <dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>for <code>plot</code>, arguments passed to <code>plot.epicontacts</code> in the
-<code>epicontacts</code> package.</p></dd>
+<dd><p>For <code>plot</code>, further arguments passed to
+<code><a href="https://rdrr.io/pkg/epicontacts/man/plot.epicontacts.html" class="external-link">epicontacts::plot.epicontacts()</a></code> or <code><a href="https://r.igraph.org/reference/plot.igraph.html" class="external-link">igraph::plot.igraph()</a></code>.
+For igraph, <code>rescale = FALSE</code> and <code>asp = 0</code> are fixed.</p></dd>
 
 
 <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>an object to be converted to <code>epicontacts</code></p></dd>
+<dd><p>A <code>simulacr</code> object returned by <code><a href="simulate_outbreak.html">simulate_outbreak()</a></code>.</p></dd>
+
+
+<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
+<dd><p>A character string indicating the plotting method:
+<code>"visNetwork"</code> (default) for an interactive plot, or <code>"igraph"</code> for a static
+tree with a time axis.</p></dd>
 
 </dl></div>
 

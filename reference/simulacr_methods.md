@@ -9,6 +9,8 @@ They include:
 
 - `as.epicontacts`: alias for `as_epicontacts`
 
+- `plot`: interactive or static transmission tree plots
+
 ## Usage
 
 ``` r
@@ -20,16 +22,26 @@ as.epicontacts(...)
 as_epicontacts(x, ...)
 
 # S3 method for class 'simulacr'
-plot(x, ...)
+plot(x, method = c("visNetwork", "igraph"), ...)
 ```
 
 ## Arguments
 
 - ...:
 
-  for `plot`, arguments passed to `plot.epicontacts` in the
-  `epicontacts` package.
+  For `plot`, further arguments passed to
+  [`epicontacts::plot.epicontacts()`](https://rdrr.io/pkg/epicontacts/man/plot.epicontacts.html)
+  or
+  [`igraph::plot.igraph()`](https://r.igraph.org/reference/plot.igraph.html).
+  For igraph, `rescale = FALSE` and `asp = 0` are fixed.
 
 - x:
 
-  an object to be converted to `epicontacts`
+  A `simulacr` object returned by
+  [`simulate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak.md).
+
+- method:
+
+  A character string indicating the plotting method: `"visNetwork"`
+  (default) for an interactive plot, or `"igraph"` for a static tree
+  with a time axis.
