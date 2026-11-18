@@ -8,11 +8,14 @@
 #'
 #' @rdname simulacr_methods
 #'
-#' @aliases as_epicontacts.simulacr as.epicontacts.simulacr
+#' @aliases as_epicontacts.simulacr as.epicontacts.simulacr as_igraph.simulacr as.igraph.simulacr
 #'
 #' @export
 #'
 #' @param x A `simulacr` object returned by [simulate_outbreak()].
+#' 
+#' @param cases_only A `logical` indicating if cases only should be included in
+#'   the converted object; defaults to `FALSE`.
 #'
 
 ## CONVERSION METHODS: TO EPICONTACTS
@@ -30,7 +33,10 @@ as.epicontacts <- as_epicontacts
 #' @rdname simulacr_methods
 #' @export
 #' 
-as_epicontacts.simulacr <- function(x, ...) {
+as_epicontacts.simulacr <- function(x, cases_only = FALSE, ...) {
+  if (cases_only) {
+    x$linelist <- x$linelist[x$linelist$casedef == "case", , drop = FALSE]
+  }
   epicontacts::make_epicontacts(
     linelist = x$linelist,
     contacts = x$tree,
@@ -57,11 +63,15 @@ as.igraph <- as_igraph
 #' @rdname simulacr_methods
 #' @export
 #' 
-as_igraph.simulacr <- function(x, ...) {
+as_igraph.simulacr <- function(x, cases_only = FALSE, ...) {
+  edges <- x$tree[!is.na(x$tree$from), , drop = FALSE]
+  if (cases_only) {
+    x$linelist <- x$linelist[x$linelist$casedef == "case", , drop = FALSE]
+  }
   igraph::graph_from_data_frame(
-    d = x$tree[!is.na(x$tree$from), , drop = FALSE],
+    d = edges,
     directed = TRUE,
-    vertices = x$linelist[x$linelist$casedef == "case", , drop = FALSE]
+    vertices = x$linelist
   )
 }
  

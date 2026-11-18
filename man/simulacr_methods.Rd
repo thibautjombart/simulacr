@@ -5,6 +5,9 @@
 \alias{as_epicontacts.simulacr}
 \alias{as.epicontacts.simulacr}
 \alias{as.epicontacts}
+\alias{as_igraph}
+\alias{as.igraph}
+\alias{as_igraph.simulacr}
 \alias{plot.simulacr}
 \title{Basic methods for simulacr objects}
 \usage{
@@ -13,6 +16,12 @@ as_epicontacts(...)
 as.epicontacts(...)
 
 \method{as_epicontacts}{simulacr}(x, ...)
+
+as_igraph(...)
+
+as.igraph(...)
+
+\method{as_igraph}{simulacr}(x, ...)
 
 \method{plot}{simulacr}(x, method = c("visNetwork", "igraph"), ...)
 }

@@ -1,31 +1,62 @@
+x <- structure(
+  list(
+    linelist = data.frame(
+      id = c("a", "b", "c", "d"),
+      casedef = c("case", "case", "case", "non_case"),
+      date_infection = c(1, 4, 1, -1),
+      stringsAsFactors = FALSE
+    ),
+    tree = data.frame(
+      from = c(NA_character_, "a", "b"),
+      to = c("a", "b", "c"),
+      date = c(1, 4, 10),
+      stringsAsFactors = FALSE
+    )
+  ),
+  class = c("simulacr", "list")
+)
+
+
+
 test_that(
   "Conversion to epicontacts works as expected", 
   {
-    
-    x <- structure(
-      list(
-        linelist = data.frame(
-          id = c("a", "b", "c", "d"),
-          casedef = c("case", "case", "case", "non_case"),
-          date_infection = c(1, 4, 1, -1),
-          stringsAsFactors = FALSE
-        ),
-        tree = data.frame(
-          from = c(NA_character_, "a", "b"),
-          to = c("a", "b", "c"),
-          date = c(1, 4, 10),
-          stringsAsFactors = FALSE
-        )
-      ),
-      class = c("simulacr", "list")
-    )
+    ## basic conversion with all individuals
     out <- as_epicontacts(x)
     expect_s3_class(out, "epicontacts")
     expect_identical(x$linelist, out$linelist)
     expect_identical(x$tree, out$contacts)
     expect_true(out$directed)
+    
+    ## keeping only cases
+    out <- as_epicontacts(x, cases_only = TRUE)
+    expect_s3_class(out, "epicontacts")
+    expect_identical(x$linelist[x$linelist$casedef == "case", ], out$linelist)
+    expect_identical(x$tree, out$contacts)
+    expect_true(out$directed)
+    
   }
 )
+
+
+
+test_that(
+  "Conversion to igraph works as expected", 
+  {
+    ## basic conversion with all individuals
+    out <- as_igraph(x)
+    expect_s3_class(out, "igraph")
+    expect_identical(labels(igraph::V(out)), x$linelist$id)
+    
+    ## keeping only cases
+    out <- as_igraph(x, cases_only = TRUE)
+    expect_s3_class(out, "igraph")
+    expect_identical(labels(igraph::V(out)), x$linelist$id[x$linelist$casedef == "case"])
+    E <- igraph::as_edgelist(out)
+    expect_equal(as.vector(E), as.vector(as.matrix(x$tree[2:3, 1:2])))
+  }
+)
+
 
 
 test_that("igraph plots preserve edges and infection times", {
