@@ -15,19 +15,21 @@
 #' @param x A `simulacr` object returned by [simulate_outbreak()].
 #'
 
+## CONVERSION METHODS: TO EPICONTACTS
 as_epicontacts <- function(...) {
   UseMethod("as_epicontacts")
 }
 
+
 #' @rdname simulacr_methods
 #' @export
-
+#' 
 as.epicontacts <- as_epicontacts
 
 
 #' @rdname simulacr_methods
 #' @export
-
+#' 
 as_epicontacts.simulacr <- function(x, ...) {
   epicontacts::make_epicontacts(
     linelist = x$linelist,
@@ -37,6 +39,35 @@ as_epicontacts.simulacr <- function(x, ...) {
 }
 
 
+## CONVERSION METHODS: TO IGRAPH
+#' @rdname simulacr_methods
+#' @export
+#' 
+as_igraph <- function(...) {
+  UseMethod("as_igraph")
+}
+
+
+#' @rdname simulacr_methods
+#' @export
+#' 
+as.igraph <- as_igraph
+
+
+#' @rdname simulacr_methods
+#' @export
+#' 
+as_igraph.simulacr <- function(x, ...) {
+  igraph::graph_from_data_frame(
+    d = x$tree[!is.na(x$tree$from), , drop = FALSE],
+    directed = TRUE,
+    vertices = x$linelist[x$linelist$casedef == "case", , drop = FALSE]
+  )
+}
+ 
+
+
+## PLOTTING METHODS
 #' @rdname simulacr_methods
 #' @export
 #' @importFrom graphics plot
