@@ -24,7 +24,7 @@ The main features of the package include:
 
 - `simulate_outbreak()`: the main function, simulating epidemic spread using inputs
 on the generation time distribution, individual transmission rates, and contact
-matrices; it outputs a `simulacr` object, which is a list containing a linelist and a transmission tree, which can be converted to `epicontacts` objects for visualisation, and plotted using `plot(...)`
+matrices; it outputs a `simulacr` object, which is a list containing a linelist and a transmission tree, which can be converted to `epicontacts` or `igraph` objects, and plotted using `plot()`
 
 - `simulate_outbreak_step()`: the step-wise version of the simulator, designed for
 calling from other packages
