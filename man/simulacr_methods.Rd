@@ -4,7 +4,11 @@
 \alias{as_epicontacts}
 \alias{as_epicontacts.simulacr}
 \alias{as.epicontacts.simulacr}
+\alias{as_igraph.simulacr}
+\alias{as.igraph.simulacr}
 \alias{as.epicontacts}
+\alias{as_igraph}
+\alias{as.igraph}
 \alias{plot.simulacr}
 \title{Basic methods for simulacr objects}
 \usage{
@@ -12,7 +16,13 @@ as_epicontacts(...)
 
 as.epicontacts(...)
 
-\method{as_epicontacts}{simulacr}(x, ...)
+\method{as_epicontacts}{simulacr}(x, cases_only = FALSE, ...)
+
+as_igraph(...)
+
+as.igraph(...)
+
+\method{as_igraph}{simulacr}(x, cases_only = FALSE, ...)
 
 \method{plot}{simulacr}(x, method = c("visNetwork", "igraph"), ...)
 }
@@ -22,6 +32,9 @@ as.epicontacts(...)
 For igraph, \code{rescale = FALSE} and \code{asp = 0} are fixed.}
 
 \item{x}{A \code{simulacr} object returned by \code{\link[=simulate_outbreak]{simulate_outbreak()}}.}
+
+\item{cases_only}{A \code{logical} indicating if cases only should be included in
+the converted object; defaults to \code{FALSE}.}
 
 \item{method}{A character string indicating the plotting method:
 \code{"visNetwork"} (default) for an interactive plot, or \code{"igraph"} for a static
