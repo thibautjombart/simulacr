@@ -34,3 +34,5 @@
   : Simulate outbreaks with transmission trees
 - [`simulate_outbreak_step()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak_step.md)
   : Simulate epidemic spread for one time step
+- [`subset(`*`<simulacr>`*`)`](https://thibautjombart.github.io/simulacr/reference/subset.simulacr.md)
+  : Subsetting simulacr objects

@@ -3,7 +3,6 @@
 ``` r
 
 library(simulacr)
-#> Warning: S3 method 'subset.simulacr' was declared in NAMESPACE but not found
 ```
 
 ## What does it do?
