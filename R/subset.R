@@ -62,7 +62,8 @@ subset.simulacr <- function(x,
   ## trim edges as needed ; the initial NA of the initial case is ignored
   current_ids <- out$linelist$id
   from_to_keep <- out$tree$from %in% current_ids
-  from_to_keep[1] <- TRUE # ignore the initial NA
+  NA_posi <- is.na(out$tree$from)
+  from_to_keep[NA_posi] <- TRUE # ignore the all NAs (imported cases)
   to_to_keep <- out$tree$to %in% current_ids
   to_keep <- from_to_keep & to_to_keep
   out$tree <- out$tree[to_keep, , drop = FALSE]
