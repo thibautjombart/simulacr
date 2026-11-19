@@ -30,6 +30,9 @@ individuals have a date of infection of -1.}
 
 \item{casedef}{A \code{character} vector listing all case definition (normally
 \code{case} or \code{non_case}) to be retained.}
+
+\item{...}{further arguments to be passed to other methods (for compatibility
+with the \code{subset} generic)}
 }
 \description{
 This method allows you to subset a simulacr object by retaining specified

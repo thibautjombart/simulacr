@@ -26,6 +26,9 @@
 #'   
 #' @param casedef A `character` vector listing all case definition (normally
 #'   `case` or `non_case`) to be retained.
+#'   
+#' @param ... further arguments to be passed to other methods (for compatibility
+#'   with the `subset` generic)
 
 subset.simulacr <- function(x, 
                             id = TRUE, 
@@ -38,6 +41,7 @@ subset.simulacr <- function(x,
   ## we first subset individuals from the linelist sequentially, then subset the
   ## edges so that all IDs are documented in the linelist
   ids <- x$linelist$id
+  names(ids) <- ids
   kept_ids <- ids[id]
   out$linelist <- out$linelist[ids %in% kept_ids, , drop = FALSE]
   
