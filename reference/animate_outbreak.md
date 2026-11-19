@@ -6,7 +6,7 @@ fixed positions. Case colours and edges reflect the displayed time.
 ## Usage
 
 ``` r
-animate_outbreak(x, t, ...)
+animate_outbreak(x, t, ask = FALSE, ...)
 ```
 
 ## Arguments
@@ -20,6 +20,11 @@ animate_outbreak(x, t, ...)
 
   A non-empty vector of non-negative integer time steps.
 
+- ask:
+
+  A `logical` indicating whether to ask for user input before plotting
+  each frame. Defaults to FALSE.
+
 - ...:
 
   Further plotting arguments. A supplied `layout` function is evaluated
@@ -28,6 +33,10 @@ animate_outbreak(x, t, ...)
 ## Value
 
 The complete `igraph` object with its fixed layout, invisibly.
+
+## Author
+
+Cyril Geismar
 
 ## Examples
 

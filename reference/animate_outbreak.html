@@ -46,7 +46,7 @@ positions. Case colours and edges reflect the displayed time.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">animate_outbreak</span><span class="op">(</span><span class="va">x</span>, <span class="va">t</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">animate_outbreak</span><span class="op">(</span><span class="va">x</span>, <span class="va">t</span>, ask <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -61,6 +61,11 @@ positions. Case colours and edges reflect the displayed time.</p>
 <dd><p>A non-empty vector of non-negative integer time steps.</p></dd>
 
 
+<dt id="arg-ask">ask<a class="anchor" aria-label="anchor" href="#arg-ask"></a></dt>
+<dd><p>A <code>logical</code> indicating whether to ask for user input before
+plotting each frame. Defaults to FALSE.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Further plotting arguments. A supplied <code>layout</code> function is
 evaluated once. The method is fixed to "igraph" and <code>cases_only</code> to FALSE.</p></dd>
@@ -69,6 +74,10 @@ evaluated once. The method is fixed to "igraph" and <code>cases_only</code> to F
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>The complete <code>igraph</code> object with its fixed layout, invisibly.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Cyril Geismar</p>
     </div>
 
     <div class="section level2">
