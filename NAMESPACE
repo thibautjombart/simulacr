@@ -3,6 +3,7 @@
 S3method(as_epicontacts,simulacr)
 S3method(as_igraph,simulacr)
 S3method(plot,simulacr)
+S3method(subset,simulacr)
 export(animate_outbreak)
 export(as_epicontacts)
 export(as_igraph)

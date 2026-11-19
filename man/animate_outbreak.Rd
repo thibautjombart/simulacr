@@ -4,12 +4,15 @@
 \alias{animate_outbreak}
 \title{Animate epidemic spread}
 \usage{
-animate_outbreak(x, t, ...)
+animate_outbreak(x, t, ask = FALSE, ...)
 }
 \arguments{
 \item{x}{A \code{simulacr} object returned by \code{\link[=simulate_outbreak]{simulate_outbreak()}}.}
 
 \item{t}{A non-empty vector of non-negative integer time steps.}
+
+\item{ask}{A \code{logical} indicating whether to ask for user input before
+plotting each frame. Defaults to FALSE.}
 
 \item{...}{Further plotting arguments. A supplied \code{layout} function is
 evaluated once. The method is fixed to "igraph" and \code{cases_only} to FALSE.}
@@ -24,4 +27,7 @@ positions. Case colours and edges reflect the displayed time.
 \examples{
 res <- simulate_outbreak(n = 30, duration = 100, tau = 0.1)
 animate_outbreak(res, t = c(1, 5, 10))
+}
+\author{
+Cyril Geismar
 }

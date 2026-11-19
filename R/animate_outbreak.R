@@ -3,18 +3,25 @@
 #' Draw one igraph plot per requested time, keeping all individuals in fixed
 #' positions. Case colours and edges reflect the displayed time.
 #'
+#' @author Cyril Geismar
+#'
 #' @inheritParams as_igraph x
+#' 
 #' @param t A non-empty vector of non-negative integer time steps.
+#' 
+#' @param ask A `logical` indicating whether to ask for user input before
+#'   plotting each frame. Defaults to FALSE.
+#' 
 #' @param ... Further plotting arguments. A supplied `layout` function is
 #'   evaluated once. The method is fixed to "igraph" and `cases_only` to FALSE.
-#'
+#'   
 #' @returns The complete `igraph` object with its fixed layout, invisibly.
 #' @export
 #'
 #' @examples
 #' res <- simulate_outbreak(n = 30, duration = 100, tau = 0.1)
 #' animate_outbreak(res, t = c(1, 5, 10))
-animate_outbreak <- function(x, t, ...) {
+animate_outbreak <- function(x, t, ask = FALSE, ...) {
   if (!inherits(x, "simulacr")) {
     stop("x must be a simulacr object")
   }
@@ -44,6 +51,12 @@ animate_outbreak <- function(x, t, ...) {
   dates <- x$linelist$date_infection
 
   ## Update a copy at each time, retaining every individual
+  if (ask) {
+    opar <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(opar))
+    graphics::par(ask = TRUE)
+  }
+  
   for (time in t) {
     frame <- x
 
