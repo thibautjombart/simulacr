@@ -2,6 +2,8 @@
 
 ## All functions
 
+- [`animate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/animate_outbreak.md)
+  : Animate epidemic spread
 - [`as_epicontacts()`](https://thibautjombart.github.io/simulacr/reference/as_epicontacts.md)
   : Convert simulacr objects to epicontacts
 - [`as_igraph()`](https://thibautjombart.github.io/simulacr/reference/as_igraph.md)

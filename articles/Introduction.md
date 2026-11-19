@@ -42,13 +42,15 @@ This brief example illustrates how we can simulate an outbreak.
 
 ``` r
 
-
 ## make a generation time distribution
 gen_time <- make_pmf_delay(make_disc_gamma(10, 7))
 plot(
-  gen_time(0:30), type = "h", lend = 2, lwd = 10, 
-  main = "Generation time distribution", 
-  xlab = "Delay from primary to secondary infection (days)", 
+  gen_time(0:30),
+  type = "h",
+  lend = 2,
+  lwd = 10,
+  main = "Generation time distribution",
+  xlab = "Delay from primary to secondary infection (days)",
   ylab = "p(delay)"
 )
 ```
@@ -58,7 +60,7 @@ plot(
 ``` r
 
 
-## simulate an outbreak using random mixing 
+## simulate an outbreak using random mixing
 ## (no contacts matrix provided -> all individuals are in contact by default)
 set.seed(1)
 res <- simulate_outbreak(
@@ -106,4 +108,15 @@ res
 #> attr(,"class")
 #> [1] "simulacr" "list"
 plot(res)
+```
+
+To save an animation as a GIF, use the optional `gifski` package.
+
+``` r
+
+gifski::save_gif(
+  animate_outbreak(res, t = 1:max(res$tree$date)),
+  gif_file = "outbreak.gif",
+  delay = 0.2
+)
 ```

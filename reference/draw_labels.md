@@ -28,7 +28,7 @@ Thibaut Jombart
 ``` r
 
 draw_labels()
-#> [1] "kaZAzx"
+#> [1] "SPcKOY"
 draw_labels(10, 3)
-#>  [1] "cHY" "3GN" "fKu" "HQg" "hnB" "GCQ" "CWH" "lbI" "PCc" "SyW"
+#>  [1] "taX" "tTg" "8OJ" "HeE" "m6W" "x4K" "Ass" "o3z" "O6d" "AoE"
 ```

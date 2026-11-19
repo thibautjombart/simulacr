@@ -49,40 +49,40 @@ as_epicontacts(x)
 #> /// Epidemiological Contacts //
 #> 
 #>   // class: epicontacts
-#>   // 100 cases in linelist; 50 contacts;  directed 
+#>   // 100 cases in linelist; 43 contacts;  directed 
 #> 
 #>   // linelist
 #> 
 #> # A tibble: 100 × 3
 #>    id     casedef  date_infection
 #>    <chr>  <chr>             <dbl>
-#>  1 IrBoMF case                  1
-#>  2 r8nMx7 non_case             -1
-#>  3 SWp22n non_case             -1
-#>  4 C4r4Qy case                  6
-#>  5 ZkFcAR case                  6
-#>  6 A7MwsG case                  4
-#>  7 e7JcRh case                  5
-#>  8 t6dqMc case                  5
-#>  9 SAV8e9 case                  3
-#> 10 V5V2pH case                 12
+#>  1 QzjNRN case                  1
+#>  2 VeocVY case                  5
+#>  3 dYBiBW non_case             -1
+#>  4 MtNiw1 non_case             -1
+#>  5 1EQOXl non_case             -1
+#>  6 FXIYNC non_case             -1
+#>  7 GvNOcU non_case             -1
+#>  8 mRxvbj non_case             -1
+#>  9 cZR1c2 non_case             -1
+#> 10 N0DPUg non_case             -1
 #> # ℹ 90 more rows
 #> 
 #>   // contacts
 #> 
-#> # A tibble: 50 × 3
+#> # A tibble: 43 × 3
 #>    from   to      date
 #>    <chr>  <chr>  <dbl>
-#>  1 NA     IrBoMF     1
-#>  2 IrBoMF 7gJoXw     2
-#>  3 IrBoMF X5MxwR     2
-#>  4 X5MxwR SAV8e9     3
-#>  5 7gJoXw MesjP9     3
-#>  6 7gJoXw lGyB1b     3
-#>  7 MesjP9 A7MwsG     4
-#>  8 lGyB1b svQULF     4
-#>  9 lGyB1b 2e4QlI     4
-#> 10 lGyB1b 8NdzMK     4
-#> # ℹ 40 more rows
+#>  1 NA     QzjNRN     1
+#>  2 QzjNRN osPvna     2
+#>  3 osPvna 9qZcx5     3
+#>  4 9qZcx5 QcQbl3     4
+#>  5 QcQbl3 VeocVY     5
+#>  6 QcQbl3 EY8Kl9     5
+#>  7 QcQbl3 jGc9A5     5
+#>  8 VeocVY tJ1ukN     6
+#>  9 VeocVY nTrsve     6
+#> 10 VeocVY UXp7Pq     6
+#> # ℹ 33 more rows
 #> 
 ```
