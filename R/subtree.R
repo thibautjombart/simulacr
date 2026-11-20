@@ -38,8 +38,7 @@ subtree <- function(x, ids, include_empty = FALSE) {
   
   list_descendants <- function(id) {
     d <- igraph::distances(g, id, mode = "out")
-    to_keep <- is.finite(d) & deg == 1
-    lab[to_keep]
+    lab[is.finite(d)]
   }
   
   
