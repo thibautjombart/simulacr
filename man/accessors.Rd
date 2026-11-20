@@ -25,6 +25,9 @@
 \alias{get_imports}
 \alias{get_imports.default}
 \alias{get_imports.simulacr}
+\alias{get_R}
+\alias{get_R.default}
+\alias{get_R.simulacr}
 \title{Accessors for simulacr objects}
 \usage{
 get_n(x, ...)
@@ -74,6 +77,12 @@ get_imports(x, ...)
 \method{get_imports}{default}(x, ...)
 
 \method{get_imports}{simulacr}(x, ...)
+
+get_R(x, ...)
+
+\method{get_R}{default}(x, ...)
+
+\method{get_R}{simulacr}(x, ...)
 }
 \arguments{
 \item{x}{A \code{simulacr} object}
@@ -96,6 +105,7 @@ The following accessors are available:
 \item \code{get_casedef()}: returns the case definition of all individuals
 \item \code{get_tree()}: returns the list of transmission pairs
 \item \code{get_imports()}: returns the labels of imported cases
+\item \code{get_R()}: returns the case reproduction numbers for each case
 }
 }
 \examples{
@@ -109,6 +119,7 @@ get_id(x)
 get_date_infection(x)
 get_tree(x)
 get_imports(x)
+get_R(x)
 }
 \author{
 Thibaut Jombart

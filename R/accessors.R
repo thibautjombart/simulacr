@@ -20,6 +20,7 @@
 #' - `get_casedef()`: returns the case definition of all individuals
 #' - `get_tree()`: returns the list of transmission pairs
 #' - `get_imports()`: returns the labels of imported cases
+#' - `get_R()`: returns the case reproduction numbers for each case 
 #' 
 #' @examples
 #' # example code
@@ -32,6 +33,7 @@
 #' get_date_infection(x)
 #' get_tree(x)
 #' get_imports(x)
+#' get_R(x)
 
 
 #' @rdname accessors
@@ -220,6 +222,36 @@ get_imports.default <- function(x, ...) {
 get_imports.simulacr <- function(x, ...) {
   as.vector(x$tree$to[is.na(x$tree$from)])
 } 
+
+
+
+
+
+#' @rdname accessors
+#' @export
+#' @aliases get_R
+get_R <- function(x, ...) {
+  UseMethod("get_R")
+}
+
+#' @rdname accessors
+#' @export
+get_R.default <- function(x, ...) {
+  msg <- paste("No method for object of class", class(x)[1])
+  stop(msg)
+} 
+
+#' @rdname accessors
+#' @export
+get_R.simulacr <- function(x, ...) {
+  x <- subset(x, casedef = "case")
+  vapply(
+    get_id(x), 
+    function(id) sum(id == get_tree(x)$from, na.rm = TRUE), 
+    integer(1)
+  )
+} 
+
 
 
 
