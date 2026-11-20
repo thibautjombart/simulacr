@@ -55,10 +55,10 @@ res
 res <- make_random_contacts(4, 2.5)
 res
 #>      [,1] [,2] [,3] [,4]
-#> [1,]    0    1    0    1
-#> [2,]    0    0    0    1
-#> [3,]    1    1    0    0
-#> [4,]    0    2    0    0
+#> [1,]    0    0    0    1
+#> [2,]    1    0    1    0
+#> [3,]    0    1    0    1
+#> [4,]    0    1    1    0
 
 ## 6 individuals with some Poisson-distributed heterogeneity in rates,
 ## average 5.6 contacts per day, except for indiv 2 (rate 500) and 3 
@@ -70,12 +70,12 @@ set.seed(1) # only to compare results with next example
 res <- make_random_contacts(6, rates)
 res
 #>      [,1] [,2] [,3] [,4] [,5] [,6]
-#> [1,]    0    0    1    3    0    0
+#> [1,]    0    1    1    3    0    1
 #> [2,]  103    0   93   87  101  108
 #> [3,]    0    0    0    0    0    0
-#> [4,]    1    0    0    0    0    0
-#> [5,]    4    1    1    1    0    3
-#> [6,]    3    0    1    2    3    0
+#> [4,]    0    0    0    0    1    1
+#> [5,]    4    1    1    1    0    1
+#> [6,]    3    0    1    1    4    0
 
 ## same, binary output (fixing seed for comparable results)
 res_nb <- res
@@ -83,18 +83,18 @@ set.seed(1)
 res <- make_random_contacts(6, rates, TRUE)
 res_nb
 #>      [,1] [,2] [,3] [,4] [,5] [,6]
-#> [1,]    0    0    1    3    0    0
+#> [1,]    0    1    1    3    0    1
 #> [2,]  103    0   93   87  101  108
 #> [3,]    0    0    0    0    0    0
-#> [4,]    1    0    0    0    0    0
-#> [5,]    4    1    1    1    0    3
-#> [6,]    3    0    1    2    3    0
+#> [4,]    0    0    0    0    1    1
+#> [5,]    4    1    1    1    0    1
+#> [6,]    3    0    1    1    4    0
 res 
 #>      [,1] [,2] [,3] [,4] [,5] [,6]
-#> [1,]    0    0    1    1    0    0
+#> [1,]    0    1    1    1    0    1
 #> [2,]    1    0    1    1    1    1
 #> [3,]    0    0    0    0    0    0
-#> [4,]    1    0    0    0    0    0
+#> [4,]    0    0    0    0    1    1
 #> [5,]    1    1    1    1    0    1
 #> [6,]    1    0    1    1    1    0
 ```

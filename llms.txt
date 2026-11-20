@@ -151,6 +151,16 @@ participating in this project you agree to abide by its terms.
 
 ## All functions
 
+- [`get_n()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  [`get_n_cases()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  [`get_n_non_cases()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  [`get_date_infection()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  [`get_id()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  [`get_tree()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  [`get_casedef()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  [`get_imports()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  [`get_R()`](https://thibautjombart.github.io/simulacr/reference/accessors.md)
+  : Accessors for simulacr objects
 - [`animate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/animate_outbreak.md)
   : Animate epidemic spread
 - [`as_epicontacts()`](https://thibautjombart.github.io/simulacr/reference/as_epicontacts.md)

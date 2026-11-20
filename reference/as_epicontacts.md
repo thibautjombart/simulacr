@@ -49,40 +49,42 @@ as_epicontacts(x)
 #> /// Epidemiological Contacts //
 #> 
 #>   // class: epicontacts
-#>   // 100 cases in linelist; 43 contacts;  directed 
+#>   // 100 cases in linelist; 13 contacts;  directed 
 #> 
 #>   // linelist
 #> 
 #> # A tibble: 100 × 3
 #>    id     casedef  date_infection
 #>    <chr>  <chr>             <dbl>
-#>  1 QzjNRN case                  1
-#>  2 VeocVY case                  5
-#>  3 dYBiBW non_case             -1
-#>  4 MtNiw1 non_case             -1
-#>  5 1EQOXl non_case             -1
-#>  6 FXIYNC non_case             -1
-#>  7 GvNOcU non_case             -1
-#>  8 mRxvbj non_case             -1
-#>  9 cZR1c2 non_case             -1
-#> 10 N0DPUg non_case             -1
+#>  1 A5uIaY case                  1
+#>  2 tIPPg7 non_case             -1
+#>  3 8c7rzF non_case             -1
+#>  4 K5XOIU non_case             -1
+#>  5 StxnDY non_case             -1
+#>  6 MrjA2N non_case             -1
+#>  7 JsUXp7 non_case             -1
+#>  8 Pq9i29 non_case             -1
+#>  9 zt9RlY non_case             -1
+#> 10 tydjO2 non_case             -1
 #> # ℹ 90 more rows
 #> 
 #>   // contacts
 #> 
-#> # A tibble: 43 × 3
+#> # A tibble: 13 × 3
 #>    from   to      date
 #>    <chr>  <chr>  <dbl>
-#>  1 NA     QzjNRN     1
-#>  2 QzjNRN osPvna     2
-#>  3 osPvna 9qZcx5     3
-#>  4 9qZcx5 QcQbl3     4
-#>  5 QcQbl3 VeocVY     5
-#>  6 QcQbl3 EY8Kl9     5
-#>  7 QcQbl3 jGc9A5     5
-#>  8 VeocVY tJ1ukN     6
-#>  9 VeocVY nTrsve     6
-#> 10 VeocVY UXp7Pq     6
-#> # ℹ 33 more rows
+#>  1 NA     A5uIaY     1
+#>  2 A5uIaY cTtO9a     2
+#>  3 cTtO9a JjxW2i     3
+#>  4 cTtO9a 6YOeIL     3
+#>  5 cTtO9a MhIqUK     3
+#>  6 MhIqUK goFf8A     4
+#>  7 JjxW2i jq1RHQ     4
+#>  8 6YOeIL iQfCcn     4
+#>  9 iQfCcn 7WPMMf     5
+#> 10 goFf8A PAqN1U     5
+#> 11 PAqN1U mQlANn     6
+#> 12 mQlANn zD5ryQ     7
+#> 13 zD5ryQ tsaJZ0     8
 #> 
 ```
