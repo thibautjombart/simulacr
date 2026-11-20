@@ -27,6 +27,9 @@ test_that(
     msg <- "No method for object of class character"
     expect_error(get_casedef("lkdsf"), msg)
     
+    msg <- "No method for object of class character"
+    expect_error(get_imports("lkdsf"), msg)
+    
   }
 )
 
@@ -42,5 +45,6 @@ test_that(
     expect_equal(get_casedef(x), x$linelist$casedef)
     expect_equal(get_date_infection(x), x$linelist$date_infection)
     expect_equal(get_tree(x), x$tree[, 1:2])
+    expect_equal(get_imports(x), get_id(x)[1])
   }
 )

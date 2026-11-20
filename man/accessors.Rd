@@ -22,6 +22,9 @@
 \alias{get_casedef}
 \alias{get_casedef.default}
 \alias{get_casedef.simulacr}
+\alias{get_imports}
+\alias{get_imports.default}
+\alias{get_imports.simulacr}
 \title{Accessors for simulacr objects}
 \usage{
 get_n(x, ...)
@@ -65,6 +68,12 @@ get_casedef(x, ...)
 \method{get_casedef}{default}(x, ...)
 
 \method{get_casedef}{simulacr}(x, ...)
+
+get_imports(x, ...)
+
+\method{get_imports}{default}(x, ...)
+
+\method{get_imports}{simulacr}(x, ...)
 }
 \arguments{
 \item{x}{A \code{simulacr} object}
@@ -74,7 +83,32 @@ get_casedef(x, ...)
 \description{
 These functions can be used to access the content of \code{simulacr} objects as
 returned by \code{\link[=simulate_outbreak]{simulate_outbreak()}}. These are all set up as S3 generics with
-methods for \code{simulacr} objects.
+methods for \code{simulacr} objects. See details for the list of accessors.
+}
+\details{
+The following accessors are available:
+\itemize{
+\item \code{get_n()}: returns the number of individuals (cases or non-cases)
+\item \code{get_n_cases()}: returns the number of cases
+\item \code{get_n_non_cases()}: returns the number of non-cases
+\item \code{get_id()}: returns individual identifiers
+\item \code{get_date_infection()}: returns the dates of infections (-1 for non-cases)
+\item \code{get_casedef()}: returns the case definition of all individuals
+\item \code{get_tree()}: returns the list of transmission pairs
+\item \code{get_imports()}: returns the labels of imported cases
+}
+}
+\examples{
+# example code
+x <- simulate_outbreak(30, 10, tau = 0.05, w = c(0, 1, 1, 2, 1.123, .55))
+x
+get_n(x)
+get_n_cases(x)
+get_n_non_cases(x)
+get_id(x)
+get_date_infection(x)
+get_tree(x)
+get_imports(x)
 }
 \author{
 Thibaut Jombart
