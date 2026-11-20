@@ -48,7 +48,7 @@ animate_outbreak <- function(x, t, ask = FALSE, ...) {
   args$method <- "igraph"
   args$cases_only <- FALSE
   title <- args$main
-  dates <- x$linelist$date_infection
+  dates <- get_date_infection(x)
 
   ## Update a copy at each time, retaining every individual
   if (ask) {

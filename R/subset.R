@@ -40,27 +40,27 @@ subset.simulacr <- function(x,
   
   ## we first subset individuals from the linelist sequentially, then subset the
   ## edges so that all IDs are documented in the linelist
-  ids <- x$linelist$id
+  ids <- get_id(x)
   names(ids) <- ids
   kept_ids <- ids[id]
   out$linelist <- out$linelist[ids %in% kept_ids, , drop = FALSE]
   
   if (!is.null(start_date)) {
-    to_keep <- out$linelist$date_infection >= start_date
+    to_keep <- get_date_infection(out) >= start_date
     out$linelist <- out$linelist[to_keep, , drop = FALSE]
   }
   
   if (!is.null(end_date)) {
-    to_keep <- out$linelist$date_infection <= end_date
+    to_keep <- get_date_infection(out) <= end_date
     out$linelist <- out$linelist[to_keep, , drop = FALSE]
   }
   
-  to_keep <- out$linelist$casedef %in% casedef
+  to_keep <- get_casedef(out) %in% casedef
   out$linelist <- out$linelist[to_keep, , drop = FALSE]
   
   
   ## trim edges as needed ; the initial NA of the initial case is ignored
-  current_ids <- out$linelist$id
+  current_ids <- get_id(out)
   from_to_keep <- out$tree$from %in% current_ids
   NA_posi <- is.na(out$tree$from)
   from_to_keep[NA_posi] <- TRUE # ignore the all NAs (imported cases)

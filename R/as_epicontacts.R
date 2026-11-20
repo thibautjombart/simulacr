@@ -37,7 +37,7 @@ as_epicontacts <- function(...) {
 #' 
 as_epicontacts.simulacr <- function(x, cases_only = FALSE, ...) {
   if (cases_only) {
-    x$linelist <- x$linelist[x$linelist$casedef == "case", , drop = FALSE]
+    x <- subset(x, casedef = "case")
   }
   epicontacts::make_epicontacts(
     linelist = x$linelist,
