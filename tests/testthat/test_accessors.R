@@ -11,6 +11,13 @@ test_that(
     
     msg <- "No method for object of class NULL"
     expect_error(get_n_cases(NULL), msg)
+ 
+    msg <- "No method for object of class integer"
+    expect_error(get_n_non_cases(1L), msg)
+    
+    msg <- "No method for object of class character"
+    expect_error(get_date_infection("lkdsf"), msg)
+    
     
   }
 )
@@ -22,5 +29,8 @@ test_that(
   {
     expect_equal(get_n(x), 30)
     expect_equal(get_n_cases(x), sum(x$linelist$casedef == "case"))
+    expect_equal(get_n_non_cases(x), sum(x$linelist$casedef == "non_case"))
+    expect_equal(get_date_infection(x), x$linelist$date_infection)
+    
   }
 )

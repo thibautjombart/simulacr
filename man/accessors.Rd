@@ -7,6 +7,12 @@
 \alias{get_n_cases}
 \alias{get_n_cases.default}
 \alias{get_n_cases.simulacr}
+\alias{get_n_non_cases}
+\alias{get_n_non_cases.default}
+\alias{get_n_non_cases.simulacr}
+\alias{get_date_infection}
+\alias{get_date_infection.default}
+\alias{get_date_infection.simulacr}
 \title{Accessors for simulacr objects}
 \usage{
 get_n(x, ...)
@@ -20,6 +26,18 @@ get_n_cases(x, ...)
 \method{get_n_cases}{default}(x, ...)
 
 \method{get_n_cases}{simulacr}(x, ...)
+
+get_n_non_cases(x, ...)
+
+\method{get_n_non_cases}{default}(x, ...)
+
+\method{get_n_non_cases}{simulacr}(x, ...)
+
+get_date_infection(x, ...)
+
+\method{get_date_infection}{default}(x, ...)
+
+\method{get_date_infection}{simulacr}(x, ...)
 }
 \arguments{
 \item{x}{A \code{simulacr} object}
