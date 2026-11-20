@@ -1,0 +1,58 @@
+#' Accessors for simulacr objects
+#' 
+#' These functions can be used to access the content of `simulacr` objects as 
+#' returned by [simulate_outbreak()]. These are all set up as S3 generics with
+#' methods for `simulacr` objects.
+#' 
+#' @author Thibaut Jombart
+#' 
+#' @param x A `simulacr` object
+#' 
+#' @param ... Further arguments to be passed to other methods.
+#' 
+#' @rdname accessors
+#' @export
+get_n <- function(x, ...) {
+  UseMethod("get_n")
+}
+
+#' @rdname accessors
+#' @export
+get_n.default <- function(x, ...) {
+  msg <- paste("No method for object of class", class(x)[1])
+  stop(msg)
+} 
+
+#' @rdname accessors
+#' @export
+get_n.simulacr <- function(x, ...) {
+  nrow(x$linelist)
+} 
+
+
+
+
+
+#' @rdname accessors
+#' @export
+#' @aliases get_n_cases
+get_n_cases <- function(x, ...) {
+  UseMethod("get_n_cases")
+}
+
+#' @rdname accessors
+#' @export
+get_n_cases.default <- function(x, ...) {
+  msg <- paste("No method for object of class", class(x)[1])
+  stop(msg)
+} 
+
+#' @rdname accessors
+#' @export
+get_n_cases.simulacr <- function(x, ...) {
+  sum(x$linelist$casedef == "case", na.rm = TRUE)
+} 
+
+
+
+
