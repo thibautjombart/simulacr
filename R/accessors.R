@@ -104,3 +104,74 @@ get_date_infection.simulacr <- function(x, ...) {
 
 
 
+
+#' @rdname accessors
+#' @export
+#' @aliases get_id
+get_id <- function(x, ...) {
+  UseMethod("get_id")
+}
+
+#' @rdname accessors
+#' @export
+get_id.default <- function(x, ...) {
+  msg <- paste("No method for object of class", class(x)[1])
+  stop(msg)
+} 
+
+#' @rdname accessors
+#' @export
+get_id.simulacr <- function(x, ...) {
+  x$linelist$id
+} 
+
+
+
+
+
+#' @rdname accessors
+#' @export
+#' @aliases get_tree
+get_tree <- function(x, ...) {
+  UseMethod("get_tree")
+}
+
+#' @rdname accessors
+#' @export
+get_tree.default <- function(x, ...) {
+  msg <- paste("No method for object of class", class(x)[1])
+  stop(msg)
+} 
+
+#' @rdname accessors
+#' @export
+get_tree.simulacr <- function(x, ...) {
+  x$tree[, c("from", "to"), drop = FALSE]
+} 
+
+
+
+
+
+#' @rdname accessors
+#' @export
+#' @aliases get_casedef
+get_casedef <- function(x, ...) {
+  UseMethod("get_casedef")
+}
+
+#' @rdname accessors
+#' @export
+get_casedef.default <- function(x, ...) {
+  msg <- paste("No method for object of class", class(x)[1])
+  stop(msg)
+} 
+
+#' @rdname accessors
+#' @export
+get_casedef.simulacr <- function(x, ...) {
+  x$linelist$casedef
+} 
+
+
+

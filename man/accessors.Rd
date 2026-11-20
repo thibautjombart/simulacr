@@ -13,6 +13,15 @@
 \alias{get_date_infection}
 \alias{get_date_infection.default}
 \alias{get_date_infection.simulacr}
+\alias{get_id}
+\alias{get_id.default}
+\alias{get_id.simulacr}
+\alias{get_tree}
+\alias{get_tree.default}
+\alias{get_tree.simulacr}
+\alias{get_casedef}
+\alias{get_casedef.default}
+\alias{get_casedef.simulacr}
 \title{Accessors for simulacr objects}
 \usage{
 get_n(x, ...)
@@ -38,6 +47,24 @@ get_date_infection(x, ...)
 \method{get_date_infection}{default}(x, ...)
 
 \method{get_date_infection}{simulacr}(x, ...)
+
+get_id(x, ...)
+
+\method{get_id}{default}(x, ...)
+
+\method{get_id}{simulacr}(x, ...)
+
+get_tree(x, ...)
+
+\method{get_tree}{default}(x, ...)
+
+\method{get_tree}{simulacr}(x, ...)
+
+get_casedef(x, ...)
+
+\method{get_casedef}{default}(x, ...)
+
+\method{get_casedef}{simulacr}(x, ...)
 }
 \arguments{
 \item{x}{A \code{simulacr} object}
