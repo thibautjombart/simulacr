@@ -34,10 +34,10 @@ as_igraph <- function(...) {
 #' @export
 #' 
 as_igraph.simulacr <- function(x, cases_only = FALSE, ...) {
-  edges <- x$tree[!is.na(x$tree$from), , drop = FALSE]
   if (cases_only) {
-    x$linelist <- x$linelist[x$linelist$casedef == "case", , drop = FALSE]
+    x <- subset(x, casedef = "case")
   }
+  edges <- x$tree[!is.na(x$tree$from), , drop = FALSE]
   igraph::graph_from_data_frame(
     d = edges,
     directed = TRUE,
