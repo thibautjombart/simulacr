@@ -245,12 +245,14 @@ get_R.default <- function(x, ...) {
 #' @export
 get_R.simulacr <- function(x, ...) {
   x <- subset(x, casedef = "case")
+  infectors <- get_tree(x)$from
+
   vapply(
-    get_id(x), 
-    function(id) sum(id == get_tree(x)$from, na.rm = TRUE), 
+    get_id(x),
+    function(id) sum(id == infectors, na.rm = TRUE),
     integer(1)
   )
-} 
+}
 
 
 
