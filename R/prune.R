@@ -1,6 +1,7 @@
 #' Prune subtrees coming from specific cases
 #' 
-#' This function prunes a `simulacr` object by removing selected cases and all their downstream infections.
+#' This function prunes a `simulacr` object by removing selected cases and all
+#' their downstream infections.
 #' 
 #' @author Thibaut Jombart
 #' 
@@ -11,6 +12,9 @@
 #' @param ids A vector of `logical`, `integer`, or `character` indicating the 
 #'   subset of cases for which subtrees should be removed. Defaults to NULL, in 
 #'   which case no pruning takes place.
+#'   
+#' @param remove_stems A `logical` indicating if the cases from which subtrees
+#'   are pruned should be removed as well. Defaults to `TRUE`.
 #' 
 #' @returns A `simulacr` object.
 #' 
@@ -22,7 +26,7 @@
 #' res <- prune(x, "eNMXjD") # prune second largest subtree
 #' plot(res)
 
-prune <- function(x, ids = NULL) {
+prune <- function(x, ids = NULL, remove_stems = TRUE) {
   if (!inherits(x, "simulacr")) {
     stop("x should be a simulacr object")
   }
@@ -40,7 +44,10 @@ prune <- function(x, ids = NULL) {
   ids_for_pruning <- intersect(ids_cases, ids)
   trees_to_remove <- subtree(x, ids_for_pruning, include_empty = FALSE)
   
-  ids_to_remove <- c(unlist(trees_to_remove), ids)
+  ids_to_remove <- unlist(trees_to_remove)
+  if (remove_stems) {
+    ids_to_remove <- c(ids_to_remove, ids)
+  }
   to_keep <- setdiff(all_ids, ids_to_remove)
   subset(x, id = to_keep)
   

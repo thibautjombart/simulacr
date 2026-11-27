@@ -26,6 +26,7 @@ test_that(
     res <- prune(x, get_id(subset(x, casedef = "non_case")))
     expect_identical(get_tree(x), get_tree(res))
     expect_identical(res, subset(x, casedef = "case"))
+   
     
     ## test results on determined tree structure
     x <-  structure(
@@ -55,6 +56,14 @@ test_that(
     expect_equal(
       unname(unlist(get_tree(res))), 
       c(NA_character_, "1", "1", "4")
+    )
+    
+    ## test stems keeping
+    res <- prune(x, c("2", "3"), remove_stems = FALSE)
+    expect_equal(get_id(res), as.character(1:4))
+    expect_equal(
+      unname(unlist(get_tree(res))), 
+      c(NA_character_, "1", "1", "1", "1", "2", "3","4")
     )
     
   }

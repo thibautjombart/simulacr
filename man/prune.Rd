@@ -4,7 +4,7 @@
 \alias{prune}
 \title{Prune subtrees coming from specific cases}
 \usage{
-prune(x, ids = NULL)
+prune(x, ids = NULL, remove_stems = TRUE)
 }
 \arguments{
 \item{x}{A \code{simulacr} object as returned by \code{\link[=simulate_outbreak]{simulate_outbreak()}}.}
@@ -12,13 +12,16 @@ prune(x, ids = NULL)
 \item{ids}{A vector of \code{logical}, \code{integer}, or \code{character} indicating the
 subset of cases for which subtrees should be removed. Defaults to NULL, in
 which case no pruning takes place.}
+
+\item{remove_stems}{A \code{logical} indicating if the cases from which subtrees
+are pruned should be removed as well. Defaults to \code{TRUE}.}
 }
 \value{
 A \code{simulacr} object.
 }
 \description{
-This function prunes a \code{simulacr} object by removing subtrees descending from
-select cases.
+This function prunes a \code{simulacr} object by removing selected cases and all
+their downstream infections.
 }
 \examples{
 set.seed(123)
