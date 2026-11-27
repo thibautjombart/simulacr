@@ -40,6 +40,8 @@
   : Check/process input of population size
 - [`process_tau()`](https://thibautjombart.github.io/simulacr/reference/process_tau.md)
   : Check/process input of transmission rates
+- [`prune()`](https://thibautjombart.github.io/simulacr/reference/prune.md)
+  : Prune subtrees coming from specific cases
 - [`simulate_outbreak()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak.md)
   : Simulate outbreaks with transmission trees
 - [`simulate_outbreak_step()`](https://thibautjombart.github.io/simulacr/reference/simulate_outbreak_step.md)

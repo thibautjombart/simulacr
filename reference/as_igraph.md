@@ -44,7 +44,7 @@ x <- simulate_outbreak(
 )
 
 as_igraph(x)
-#> IGRAPH d9c568a DN-- 100 0 -- 
+#> IGRAPH f63ae46 DN-- 100 0 -- 
 #> + attr: name (v/c), casedef (v/c), date_infection (v/n), date (e/n)
-#> + edges from d9c568a (vertex names):
+#> + edges from f63ae46 (vertex names):
 ```
