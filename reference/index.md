@@ -46,3 +46,5 @@
   : Simulate epidemic spread for one time step
 - [`subset(`*`<simulacr>`*`)`](https://thibautjombart.github.io/simulacr/reference/subset.simulacr.md)
   : Subsetting simulacr objects
+- [`subtree()`](https://thibautjombart.github.io/simulacr/reference/subtree.md)
+  : Identify the subtree coming from specific cases

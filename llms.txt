@@ -195,6 +195,8 @@ participating in this project you agree to abide by its terms.
   : Simulate epidemic spread for one time step
 - [`subset(`*`<simulacr>`*`)`](https://thibautjombart.github.io/simulacr/reference/subset.simulacr.md)
   : Subsetting simulacr objects
+- [`subtree()`](https://thibautjombart.github.io/simulacr/reference/subtree.md)
+  : Identify the subtree coming from specific cases
 
 # Articles
 
