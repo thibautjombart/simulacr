@@ -9,7 +9,7 @@
 #' 
 #' @param x A `simulacr` object as returned by [simulate_outbreak()].
 #' 
-#' @param id A vector of `logical`, `integer`, or `character` indicating the 
+#' @param ids A vector of `logical`, `integer`, or `character` indicating the 
 #'   subset of cases for which subtrees should be returned. If empty, subtrees 
 #'   of all cases are returned.
 #'   

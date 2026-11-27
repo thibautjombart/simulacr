@@ -9,12 +9,12 @@ subtree(x, ids, include_empty = FALSE)
 \arguments{
 \item{x}{A \code{simulacr} object as returned by \code{\link[=simulate_outbreak]{simulate_outbreak()}}.}
 
-\item{include_empty}{A \code{logical} indicating of empty subtrees should be
-returned; FALSE by default.}
-
-\item{id}{A vector of \code{logical}, \code{integer}, or \code{character} indicating the
+\item{ids}{A vector of \code{logical}, \code{integer}, or \code{character} indicating the
 subset of cases for which subtrees should be returned. If empty, subtrees
 of all cases are returned.}
+
+\item{include_empty}{A \code{logical} indicating of empty subtrees should be
+returned; FALSE by default.}
 }
 \value{
 A named list of IDs forming descending subtrees from cases.
