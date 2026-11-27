@@ -1,7 +1,6 @@
 #' Prune subtrees coming from specific cases
 #' 
-#' This function prunes a `simulacr` object by removing subtrees descending from
-#' select cases.
+#' This function prunes a `simulacr` object by removing selected cases and all their downstream infections.
 #' 
 #' @author Thibaut Jombart
 #' 
