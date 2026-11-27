@@ -19,11 +19,12 @@ subtree <- function(x, ids, include_empty = FALSE) {
   if (!inherits(x, "simulacr")) {
     stop("x should be a simulacr object")
   }
-  if (!(is.logical(ids) || is.numeric(ids) || is.character(x))) {
+  if (!(is.logical(ids) || is.numeric(ids) || is.character(ids))) {
     stop("ids should be a logical, integer, or character vector")
   }
-  if (is.character(ids) && !all(ids %in% get_id(x))) {
-    stop("some ids are not listed in x")
+  id_cases <- get_id(subset(x, casedef = "case"))
+  if (is.character(ids) && !all(ids %in% id_cases)) {
+    stop("some ids are not listed cases in x")
   }
    
   all_ids <- get_id(x)

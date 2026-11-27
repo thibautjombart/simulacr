@@ -9,6 +9,13 @@ test_that(
     
     msg <- "ids should be a logical, integer, or character vector"
     expect_error(subtree(x, NULL), msg)
+   
+    msg <- "some ids are not listed cases in x"
+    expect_error(subtree(x, "toto"), msg)
+  
+    msg <- "some ids are not listed cases in x"
+    not_a_case <- get_id(subset(x, casedef = "non_case"))[1]
+    expect_error(subtree(x, not_a_case), msg)
     
   }
 )
